@@ -134,7 +134,7 @@
     "cityPresetsDescription": "车辆预设使用历史市场数据。默认价格基于当前市场价值；折旧率根据历史数据估算。数据仅供参考，不代表未来市场状况。",
     "tabs": {
       "buy": "买车",
-      "rent": "租车 + 投资"
+      "rent": "租赁 + 投资"
     },
     "buy": {
       "homePrice": "汽车价格",
@@ -187,7 +187,7 @@
       "years": "年份",
       "netWorthLabel": "净资产",
       "buySeriesName": "买车",
-      "rentSeriesName": "租车 + 投资"
+      "rentSeriesName": "租赁 + 投资"
     },
     "cashFlow": {
       "title": "现金支出对比",
