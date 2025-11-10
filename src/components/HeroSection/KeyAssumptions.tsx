@@ -43,14 +43,14 @@ export default function KeyAssumptions() {
         <div className="flex items-center">
           <i className="fas fa-home text-primary-500 mr-2"></i>
           <span>
-            {t("hero.assumptions.homeValue")} <span className="font-medium">{formatCurrency(buyInputs.propertyPrice)}</span>
+            {t("hero.assumptions.vehicleValue")} <span className="font-medium">{formatCurrency(buyInputs.vehiclePrice)}</span>
           </span>
         </div>
 
         <div className="flex items-center">
           <i className="fas fa-building text-secondary-500 mr-2"></i>
           <span>
-            {t("hero.assumptions.currentRent")} <span className="font-medium">{formatCurrency(rentInputs.currentMonthlyRentAmount)}/mo</span>
+            {t("hero.assumptions.currentLease")} <span className="font-medium">{formatCurrency(rentInputs.currentMonthlyLeaseAmount)}/mo</span>
           </span>
         </div>
 
@@ -69,17 +69,17 @@ export default function KeyAssumptions() {
         </div>
 
         <div className="flex items-center">
-          <i className="fas fa-arrow-trend-up text-primary-500 mr-2"></i>
+          <i className="fas fa-arrow-trend-down text-primary-500 mr-2"></i>
           <span>
-            {t("hero.assumptions.homeAppreciation")}{" "}
-            <span className="font-medium">{formatPercentage(buyInputs.homeAppreciationCagr)}/yr</span>
+            {t("hero.assumptions.vehicleDepreciation")}{" "}
+            <span className="font-medium">{formatPercentage(buyInputs.vehicleDepreciationRate)}/yr</span>
           </span>
         </div>
 
         <div className="flex items-center">
           <i className="fas fa-arrow-trend-up text-secondary-500 mr-2"></i>
           <span>
-            {t("hero.assumptions.rentIncrease")} <span className="font-medium">{formatPercentage(rentInputs.rentGrowthRateAnnual)}/yr</span>
+            {t("hero.assumptions.leaseIncrease")} <span className="font-medium">{formatPercentage(rentInputs.leaseGrowthRateAnnual)}/yr</span>
           </span>
         </div>
       </div>
