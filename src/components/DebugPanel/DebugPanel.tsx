@@ -3,8 +3,7 @@ import { useApp } from '../../contexts';
 import { useCalculations } from '../../hooks';
 import { formatCurrency } from '../../lib/inputUtils';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const DebugPanel = () => {
+export const DebugPanel = () => {
   const { state } = useApp();
   const { results, getNetWorthComparison, getBreakEvenYear } = useCalculations();
   const [selectedYear, setSelectedYear] = useState(() => Math.min(20, results.projectionYears));

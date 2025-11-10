@@ -1,1 +1,1 @@
-export * from './DebugPanel';
+export { DebugPanel } from './DebugPanel';
