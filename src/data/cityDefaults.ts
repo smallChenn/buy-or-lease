@@ -1,198 +1,104 @@
 import type { BuyInputs, RentInputs } from "../contexts/AppContext";
 
-export interface CityDefault {
+export interface VehicleDefault {
   id: string;
   name: string;
   data: Partial<BuyInputs & RentInputs>;
-  children?: CityDefault[];
+  children?: VehicleDefault[];
 }
 
-export const cityDefaults: CityDefault[] = [
+export const cityDefaults: VehicleDefault[] = [
   {
     id: "default",
     name: "Default",
     data: {
-      propertyPrice: 1000000,
-      downPaymentPercentage: 25,
-      mortgageInterestRateAnnual: 6.75,
-      propertyTaxRateAnnual: 0.8,
-      currentMonthlyRentAmount: 6000,
-      homeAppreciationCagr: 3.5,
+      vehiclePrice: 35000,
+      downPaymentPercentage: 20,
+      autoLoanInterestRateAnnual: 5.5,
+      loanTermYears: 5,
+      vehicleDepreciationRate: 15,
+      insuranceAndRegistrationRateAnnual: 2.5,
+      maintenanceRateAnnual: 1.5,
+      fuelCostsAnnual: 2000,
+      currentMonthlyLeaseAmount: 500,
+      leaseGrowthRateAnnual: 3.0,
+      sameAsVehicleDepreciation: false,
     },
   },
   {
-    id: "bayarea",
-    name: "Bay Area, CA",
+    id: "economy",
+    name: "Economy Car",
     data: {
-      propertyPrice: 1950000,
-      propertyTaxRateAnnual: 1.1,
-      currentMonthlyRentAmount: 4800,
-      homeAppreciationCagr: 6.0,
-      rentGrowthRateAnnual: 4.5,
-      sameAsHomeAppreciation: false,
-    },
-    children: [
-      {
-        id: "bayarea-scc",
-        name: "Santa Clara County",
-        data: {
-          propertyPrice: 2090000, // 2025 median
-          propertyTaxRateAnnual: 1.1,
-          homeAppreciationCagr: 8.0, // 10-year CAGR (2015→2025)
-          rentGrowthRateAnnual: 4.5,
-          sameAsHomeAppreciation: false,
-        },
-      },
-      {
-        id: "bayarea-cupertino",
-        name: "Cupertino",
-        data: {
-          propertyPrice: 3575000, // 2025 median
-          propertyTaxRateAnnual: 1.1,
-          homeAppreciationCagr: 6.8, // 10-year CAGR (2015→2025)
-          rentGrowthRateAnnual: 4.5,
-          sameAsHomeAppreciation: false,
-        },
-      },
-      {
-        id: "bayarea-sunnyvale",
-        name: "Sunnyvale",
-        data: {
-          propertyPrice: 2700000, // 2025 median
-          propertyTaxRateAnnual: 1.1,
-          homeAppreciationCagr: 6.7, // 10-year CAGR (2015→2025)
-          rentGrowthRateAnnual: 4.5,
-          sameAsHomeAppreciation: false,
-        },
-      },
-    ],
-  },
-  {
-    id: "losangeles",
-    name: "Los Angeles, CA",
-    data: {
-      propertyPrice: 1100000,
-      propertyTaxRateAnnual: 1.2,
-      currentMonthlyRentAmount: 3800,
-      homeAppreciationCagr: 6.5,
-      rentGrowthRateAnnual: 5.0,
-      sameAsHomeAppreciation: false,
+      vehiclePrice: 25000,
+      downPaymentPercentage: 20,
+      autoLoanInterestRateAnnual: 5.0,
+      loanTermYears: 5,
+      vehicleDepreciationRate: 20,
+      insuranceAndRegistrationRateAnnual: 2.0,
+      maintenanceRateAnnual: 1.0,
+      fuelCostsAnnual: 1500,
+      currentMonthlyLeaseAmount: 350,
+      leaseGrowthRateAnnual: 3.0,
+      sameAsVehicleDepreciation: false,
     },
   },
   {
-    id: "seattle",
-    name: "Seattle, WA",
+    id: "midrange",
+    name: "Mid-Range Car",
     data: {
-      propertyPrice: 1350000,
-      propertyTaxRateAnnual: 1.1,
-      currentMonthlyRentAmount: 4000,
-      homeAppreciationCagr: 6.5,
-      rentGrowthRateAnnual: 5.0,
-      sameAsHomeAppreciation: false,
+      vehiclePrice: 40000,
+      downPaymentPercentage: 20,
+      autoLoanInterestRateAnnual: 5.5,
+      loanTermYears: 5,
+      vehicleDepreciationRate: 15,
+      insuranceAndRegistrationRateAnnual: 2.5,
+      maintenanceRateAnnual: 1.5,
+      fuelCostsAnnual: 2000,
+      currentMonthlyLeaseAmount: 550,
+      leaseGrowthRateAnnual: 3.0,
+      sameAsVehicleDepreciation: false,
     },
   },
   {
-    id: "newyork",
-    name: "New York, NY",
+    id: "luxury",
+    name: "Luxury Car",
     data: {
-      propertyPrice: 950000,
-      propertyTaxRateAnnual: 1.0,
-      currentMonthlyRentAmount: 4500,
-      homeAppreciationCagr: 3.0,
-      rentGrowthRateAnnual: 2.0,
-      sameAsHomeAppreciation: false,
+      vehiclePrice: 60000,
+      downPaymentPercentage: 20,
+      autoLoanInterestRateAnnual: 6.0,
+      loanTermYears: 5,
+      vehicleDepreciationRate: 12,
+      insuranceAndRegistrationRateAnnual: 3.0,
+      maintenanceRateAnnual: 2.0,
+      fuelCostsAnnual: 2500,
+      currentMonthlyLeaseAmount: 800,
+      leaseGrowthRateAnnual: 3.0,
+      sameAsVehicleDepreciation: false,
     },
   },
   {
-    id: "chicago",
-    name: "Chicago, IL",
+    id: "suv",
+    name: "SUV",
     data: {
-      propertyPrice: 400000,
-      propertyTaxRateAnnual: 1.9,
-      currentMonthlyRentAmount: 2000,
-      homeAppreciationCagr: 4.5,
-      rentGrowthRateAnnual: 3.0,
-      sameAsHomeAppreciation: false,
-    },
-  },
-  {
-    id: "houston",
-    name: "Houston, TX",
-    data: {
-      propertyPrice: 300000,
-      propertyTaxRateAnnual: 1.6,
-      currentMonthlyRentAmount: 1900,
-      homeAppreciationCagr: 4.5,
-      rentGrowthRateAnnual: 5.0,
-      sameAsHomeAppreciation: false,
-    },
-  },
-  {
-    id: "austin",
-    name: "Austin, TX",
-    data: {
-      propertyPrice: 550000,
-      propertyTaxRateAnnual: 1.6,
-      currentMonthlyRentAmount: 1900,
-      homeAppreciationCagr: 7.5,
-      rentGrowthRateAnnual: 4.5,
-      sameAsHomeAppreciation: false,
-    },
-  },
-  {
-    id: "dallas",
-    name: "Dallas, TX",
-    data: {
-      propertyPrice: 350000,
-      propertyTaxRateAnnual: 1.6,
-      currentMonthlyRentAmount: 2000,
-      homeAppreciationCagr: 7.0,
-      rentGrowthRateAnnual: 4.5,
-      sameAsHomeAppreciation: false,
-    },
-  },
-  {
-    id: "phoenix",
-    name: "Phoenix, AZ",
-    data: {
-      propertyPrice: 450000,
-      propertyTaxRateAnnual: 0.8,
-      currentMonthlyRentAmount: 1600,
-      homeAppreciationCagr: 7.5,
-      rentGrowthRateAnnual: 4.5,
-      sameAsHomeAppreciation: false,
-    },
-  },
-  {
-    id: "boston",
-    name: "Boston, MA",
-    data: {
-      propertyPrice: 800000,
-      propertyTaxRateAnnual: 1.2,
-      currentMonthlyRentAmount: 3800,
-      homeAppreciationCagr: 5.0,
-      rentGrowthRateAnnual: 5.0,
-      sameAsHomeAppreciation: false,
-    },
-  },
-  {
-    id: "orlando",
-    name: "Orlando, FL",
-    data: {
-      propertyPrice: 420000,
-      propertyTaxRateAnnual: 1.2,
-      currentMonthlyRentAmount: 2000,
-      homeAppreciationCagr: 9.0,
-      rentGrowthRateAnnual: 4.5,
-      sameAsHomeAppreciation: false,
+      vehiclePrice: 45000,
+      downPaymentPercentage: 20,
+      autoLoanInterestRateAnnual: 5.5,
+      loanTermYears: 5,
+      vehicleDepreciationRate: 18,
+      insuranceAndRegistrationRateAnnual: 2.8,
+      maintenanceRateAnnual: 1.8,
+      fuelCostsAnnual: 3000,
+      currentMonthlyLeaseAmount: 600,
+      leaseGrowthRateAnnual: 3.0,
+      sameAsVehicleDepreciation: false,
     },
   },
 ];
 
-export function getCityDefault(id: string): CityDefault | undefined {
-  const stack: CityDefault[] = [...cityDefaults];
+export function getCityDefault(id: string): VehicleDefault | undefined {
+  const stack: VehicleDefault[] = [...cityDefaults];
   while (stack.length > 0) {
-    const current = stack.pop() as CityDefault;
+    const current = stack.pop() as VehicleDefault;
     if (current.id === id) {
       return current;
     }

@@ -10,34 +10,34 @@ export type FilingStatus = "Single" | "Married";
 // Buy scenario inputs
 export interface BuyInputs {
   // Essential inputs
-  propertyPrice: number;
+  vehiclePrice: number;
   downPaymentPercentage: number;
-  mortgageInterestRateAnnual: number;
-  mortgageTermYears: 15 | 20 | 30;
-  homeAppreciationCagr: number;
+  autoLoanInterestRateAnnual: number;
+  loanTermYears: 3 | 5 | 7 | 10;
+  vehicleDepreciationRate: number;
 
   // Advanced inputs - transaction costs
-  closingCostsPercentageBuy: number;
+  dealerFeesPercentageBuy: number;
   sellingCostsPercentageSell: number;
 
   // Advanced inputs - holding costs
-  propertyTaxRateAnnual: number;
-  insuranceAndMaintenanceRateAnnual: number;
-  hoaFeeAnnual: number;
+  insuranceAndRegistrationRateAnnual: number;
+  maintenanceRateAnnual: number;
+  fuelCostsAnnual: number;
 
   // Advanced inputs - tax implications
   marginalTaxRate: number;
-  mortgageInterestDeduction: boolean;
-  longTermCapitalGainsTaxRateProperty: number;
+  autoLoanInterestDeduction: boolean;
+  longTermCapitalGainsTaxRateVehicle: number;
   taxFreeCapitalGainAmount: number;
   filingStatus: FilingStatus;
 }
 
-// Rent & invest scenario inputs
+// Lease & invest scenario inputs
 export interface RentInputs {
-  currentMonthlyRentAmount: number;
-  rentGrowthRateAnnual: number;
-  sameAsHomeAppreciation: boolean;
+  currentMonthlyLeaseAmount: number;
+  leaseGrowthRateAnnual: number;
+  sameAsVehicleDepreciation: boolean;
   selectedInvestmentOption: InvestmentOption;
   customInvestmentReturn: number;
   longTermCapitalGainsTaxRateInvestment: number;
@@ -69,7 +69,7 @@ export type AppAction =
   | { type: "TOGGLE_CASH_OUT_MODE" }
   | { type: "TOGGLE_YEARLY_MODE" }
   | { type: "RECALCULATE" }
-  | { type: "LOAD_CITY_DEFAULTS"; cityData: Partial<BuyInputs & RentInputs> }
+  | { type: "LOAD_VEHICLE_DEFAULTS"; vehicleData: Partial<BuyInputs & RentInputs> }
   | {
       type: "LOAD_STATE_FROM_URL";
       state: { buyInputs?: Partial<BuyInputs>; rentInputs?: Partial<RentInputs>; appSettings?: Partial<AppSettings> };
@@ -78,33 +78,33 @@ export type AppAction =
 // Default values
 const defaultBuyInputs: BuyInputs = {
   // Essential
-  propertyPrice: 1500000,
-  downPaymentPercentage: 25,
-  mortgageInterestRateAnnual: 6.75,
-  mortgageTermYears: 30,
-  homeAppreciationCagr: 3.5,
+  vehiclePrice: 35000,
+  downPaymentPercentage: 20,
+  autoLoanInterestRateAnnual: 5.5,
+  loanTermYears: 5,
+  vehicleDepreciationRate: 15, // Cars depreciate, not appreciate
 
   // Transaction costs
-  closingCostsPercentageBuy: 2,
+  dealerFeesPercentageBuy: 3,
   sellingCostsPercentageSell: 5,
 
   // Holding costs
-  propertyTaxRateAnnual: 1.1,
-  insuranceAndMaintenanceRateAnnual: 1.0,
-  hoaFeeAnnual: 0,
+  insuranceAndRegistrationRateAnnual: 2.5,
+  maintenanceRateAnnual: 1.5,
+  fuelCostsAnnual: 2000,
 
   // Tax implications
   marginalTaxRate: 24,
-  mortgageInterestDeduction: true,
-  longTermCapitalGainsTaxRateProperty: 15,
-  taxFreeCapitalGainAmount: 500000, // Married filing jointly
+  autoLoanInterestDeduction: false, // Usually not deductible for personal use
+  longTermCapitalGainsTaxRateVehicle: 15,
+  taxFreeCapitalGainAmount: 0, // No tax-free threshold for vehicles
   filingStatus: "Married",
 };
 
 const defaultRentInputs: RentInputs = {
-  currentMonthlyRentAmount: 5000,
-  rentGrowthRateAnnual: 3.5,
-  sameAsHomeAppreciation: true,
+  currentMonthlyLeaseAmount: 500,
+  leaseGrowthRateAnnual: 3.0,
+  sameAsVehicleDepreciation: false,
   selectedInvestmentOption: "SPY",
   customInvestmentReturn: 10,
   longTermCapitalGainsTaxRateInvestment: 15,
@@ -112,7 +112,7 @@ const defaultRentInputs: RentInputs = {
 
 const defaultAppSettings: AppSettings = {
   currentLanguage: "en",
-  projectionYears: 15,
+  projectionYears: 5, // More appropriate for cars (3, 5, 7, 10 years)
   showCashOut: false,
   showYearlyMode: false,
 };
@@ -136,12 +136,10 @@ export const getInvestmentReturnRate = (inputs: RentInputs): number => {
 };
 
 // Helper function to get tax-free capital gain amount
+// Note: Vehicles don't have tax-free thresholds like homes, so this returns 0
 export const getTaxFreeCapitalGainAmount = (filingStatus: FilingStatus): number => {
-  const amounts: Record<FilingStatus, number> = {
-    Single: 250000,
-    Married: 500000,
-  };
-  return amounts[filingStatus];
+  // Vehicles don't have the same tax-free capital gains exclusion as primary residences
+  return 0;
 };
 
 // Reducer function
@@ -158,17 +156,17 @@ function appReducer(state: AppState, action: AppAction): AppState {
         newBuyInputs.taxFreeCapitalGainAmount = getTaxFreeCapitalGainAmount(action.value as FilingStatus);
       }
 
-      // If home appreciation rate changes and rent is set to follow it, update rent growth rate
+      // If vehicle depreciation rate changes and lease is set to follow it, update lease growth rate
       let newRentInputs = state.rentInputs;
-      if (action.field === "homeAppreciationCagr" && state.rentInputs.sameAsHomeAppreciation) {
+      if (action.field === "vehicleDepreciationRate" && state.rentInputs.sameAsVehicleDepreciation) {
         newRentInputs = {
           ...state.rentInputs,
-          rentGrowthRateAnnual: action.value as number,
+          leaseGrowthRateAnnual: action.value as number,
         };
       }
 
-      // Sync capital gains tax rates between buy and rent inputs
-      if (action.field === "longTermCapitalGainsTaxRateProperty") {
+      // Sync capital gains tax rates between buy and lease inputs
+      if (action.field === "longTermCapitalGainsTaxRateVehicle") {
         newRentInputs = {
           ...newRentInputs,
           longTermCapitalGainsTaxRateInvestment: action.value as number,
@@ -189,17 +187,17 @@ function appReducer(state: AppState, action: AppAction): AppState {
         [action.field]: action.value,
       };
 
-      // If sameAsHomeAppreciation is enabled, sync rent growth with home appreciation
-      if (action.field === "sameAsHomeAppreciation" && action.value) {
-        newRentInputs.rentGrowthRateAnnual = state.buyInputs.homeAppreciationCagr;
+      // If sameAsVehicleDepreciation is enabled, sync lease growth with vehicle depreciation
+      if (action.field === "sameAsVehicleDepreciation" && action.value) {
+        newRentInputs.leaseGrowthRateAnnual = state.buyInputs.vehicleDepreciationRate;
       }
 
-      // Sync capital gains tax rates between buy and rent inputs
+      // Sync capital gains tax rates between buy and lease inputs
       let newBuyInputs = state.buyInputs;
       if (action.field === "longTermCapitalGainsTaxRateInvestment") {
         newBuyInputs = {
           ...state.buyInputs,
-          longTermCapitalGainsTaxRateProperty: action.value as number,
+          longTermCapitalGainsTaxRateVehicle: action.value as number,
         };
       }
 
@@ -248,16 +246,16 @@ function appReducer(state: AppState, action: AppAction): AppState {
         },
       };
 
-    case "LOAD_CITY_DEFAULTS":
+    case "LOAD_VEHICLE_DEFAULTS":
       return {
         ...state,
         buyInputs: {
           ...state.buyInputs,
-          ...action.cityData,
+          ...action.vehicleData,
         },
         rentInputs: {
           ...state.rentInputs,
-          ...action.cityData,
+          ...action.vehicleData,
         },
         isCalculationValid: false,
       };
@@ -293,7 +291,7 @@ interface AppContextType {
   updateBuyInput: (field: keyof BuyInputs, value: BuyInputs[keyof BuyInputs]) => void;
   updateRentInput: (field: keyof RentInputs, value: RentInputs[keyof RentInputs]) => void;
   updateAppSetting: (field: keyof AppSettings, value: AppSettings[keyof AppSettings]) => void;
-  loadCityDefaults: (cityData: Partial<BuyInputs & RentInputs>) => void;
+  loadVehicleDefaults: (vehicleData: Partial<BuyInputs & RentInputs>) => void;
   recalculate: () => void;
 }
 
@@ -320,8 +318,8 @@ export function AppProvider({ children }: AppProviderProps) {
     dispatch({ type: "UPDATE_APP_SETTING", field, value });
   };
 
-  const loadCityDefaults = (cityData: Partial<BuyInputs & RentInputs>) => {
-    dispatch({ type: "LOAD_CITY_DEFAULTS", cityData });
+  const loadVehicleDefaults = (vehicleData: Partial<BuyInputs & RentInputs>) => {
+    dispatch({ type: "LOAD_VEHICLE_DEFAULTS", vehicleData });
   };
 
   const recalculate = () => {
@@ -334,7 +332,7 @@ export function AppProvider({ children }: AppProviderProps) {
     updateBuyInput,
     updateRentInput,
     updateAppSetting,
-    loadCityDefaults,
+    loadVehicleDefaults,
     recalculate,
   };
 

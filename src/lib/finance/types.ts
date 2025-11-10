@@ -1,11 +1,11 @@
-export interface MortgageDetails {
+export interface AutoLoanDetails {
   monthlyPayment: number;
   totalLoanAmount: number;
   downPaymentAmount: number;
-  closingCostsAmount: number;
+  dealerFeesAmount: number;
 }
 
-export interface YearlyMortgageBreakdown {
+export interface YearlyAutoLoanBreakdown {
   year: number;
   annualInterestPaid: number;
   annualPrincipalPaid: number;
@@ -15,33 +15,33 @@ export interface YearlyMortgageBreakdown {
 
 export interface YearlyBuyCalculation {
   year: number;
-  propertyValue: number;
+  vehicleValue: number;
   totalHoldingCosts: number;
-  propertyTax: number;
-  insuranceAndMaintenance: number;
-  hoaFee: number;
-  mortgagePayment: number;
-  mortgageInterest: number;
-  mortgagePrincipal: number;
+  insuranceAndRegistration: number;
+  maintenance: number;
+  fuelCosts: number;
+  autoLoanPayment: number;
+  autoLoanInterest: number;
+  autoLoanPrincipal: number;
   taxSavingsFromDeduction: number;
   cashOutflow: number;
   adjustedCashOutflow: number;
   netAssetValueNotCashOut: number;
   netAssetValueCashOut: number;
-  capitalGainOnProperty: number;
-  taxableGainOnProperty: number;
-  taxOnPropertyGain: number;
-  remainingMortgageBalance: number;
+  capitalGainOnVehicle: number;
+  taxableGainOnVehicle: number;
+  taxOnVehicleGain: number;
+  remainingAutoLoanBalance: number;
   additionalInvestmentPortfolio: number;
   additionalInvestmentCostBasis: number;
   additionalInvestmentGains: number;
   taxOnAdditionalInvestment: number;
 }
 
-export interface YearlyRentCalculation {
+export interface YearlyLeaseCalculation {
   year: number;
-  monthlyRent: number;
-  annualRentCost: number;
+  monthlyLease: number;
+  annualLeaseCost: number;
   cashOutflow: number;
   additionalInvestmentThisYear: number;
   portfolioValueBeforeGrowth: number;
@@ -58,11 +58,11 @@ export interface YearlyRentCalculation {
 export interface YearlyCalculation {
   year: number;
   buy: YearlyBuyCalculation;
-  rent: YearlyRentCalculation;
+  rent: YearlyLeaseCalculation;
 }
 
 export interface PreliminaryCalculations {
-  mortgage: MortgageDetails;
+  autoLoan: AutoLoanDetails;
   initialInvestmentAmount: number;
   taxFreeCapitalGainAmount: number;
   investmentReturnRate: number;
@@ -75,12 +75,12 @@ export interface CalculationResults {
 }
 
 export interface CalculationFormulas {
-  monthlyMortgagePayment: string;
-  propertyValueGrowth: string;
+  monthlyAutoLoanPayment: string;
+  vehicleValueDepreciation: string;
   investmentGrowth: string;
   taxCalculations: {
-    mortgageInterestDeduction: string;
-    propertyCapitalGains: string;
+    autoLoanInterestDeduction: string;
+    vehicleCapitalGains: string;
     investmentCapitalGains: string;
   };
 }

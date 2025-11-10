@@ -9,7 +9,7 @@ type ActiveTab = "buy" | "rent";
 
 export default function InputPanel() {
   const { t } = useTranslation();
-  const { loadCityDefaults } = useApp();
+  const { loadVehicleDefaults } = useApp();
   const [activeTab, setActiveTab] = useState<ActiveTab>("buy");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState(cityDefaults[0]);
@@ -25,7 +25,7 @@ export default function InputPanel() {
 
     if (cityData) {
       setSelectedCity(cityData);
-      loadCityDefaults(cityData.data);
+      loadVehicleDefaults(cityData.data);
       setIsDropdownOpen(false);
 
       // Show notification (simple console log for now, can be enhanced later)

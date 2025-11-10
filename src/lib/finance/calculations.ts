@@ -4,17 +4,17 @@ import type {
   PreliminaryCalculations, 
   YearlyCalculation,
   YearlyBuyCalculation,
-  YearlyRentCalculation,
-  YearlyMortgageBreakdown,
+  YearlyLeaseCalculation,
+  YearlyAutoLoanBreakdown,
   CalculationFormulas
 } from './types';
 import { TAX_FREE_CAPITAL_GAINS, INVESTMENT_OPTIONS } from '../constants';
 
 /**
- * Calculate monthly mortgage payment using standard PMT formula
+ * Calculate monthly auto loan payment using standard PMT formula
  * M = P [i(1 + i)^n] / [(1 + i)^n – 1]
  */
-export function calculateMonthlyMortgagePayment(
+export function calculateMonthlyAutoLoanPayment(
   loanAmount: number,
   annualInterestRate: number,
   termYears: number
@@ -34,20 +34,20 @@ export function calculateMonthlyMortgagePayment(
 }
 
 /**
- * Generate mortgage amortization schedule for all years
+ * Generate auto loan amortization schedule for all years
  */
 export function generateAmortizationSchedule(
   loanAmount: number,
   annualInterestRate: number,
   termYears: number,
   projectionYears: number
-): YearlyMortgageBreakdown[] {
-  const monthlyPayment = calculateMonthlyMortgagePayment(loanAmount, annualInterestRate, termYears);
+): YearlyAutoLoanBreakdown[] {
+  const monthlyPayment = calculateMonthlyAutoLoanPayment(loanAmount, annualInterestRate, termYears);
   const monthlyRate = annualInterestRate / 100 / 12;
   
   let remainingBalance = loanAmount;
   let totalPaid = 0;
-  const schedule: YearlyMortgageBreakdown[] = [];
+  const schedule: YearlyAutoLoanBreakdown[] = [];
   
   for (let year = 1; year <= projectionYears; year++) {
     let annualInterest = 0;
@@ -72,7 +72,7 @@ export function generateAmortizationSchedule(
       totalPaid
     });
     
-    // If mortgage is paid off, remaining years have no payments
+    // If auto loan is paid off, remaining years have no payments
     if (remainingBalance <= 0) {
       for (let remainingYear = year + 1; remainingYear <= projectionYears; remainingYear++) {
         schedule.push({
@@ -97,17 +97,17 @@ export function calculatePreliminaryValues(
   buyInputs: BuyInputs,
   rentInputs: RentInputs
 ): PreliminaryCalculations {
-  const downPaymentAmount = (buyInputs.propertyPrice * buyInputs.downPaymentPercentage) / 100;
-  const loanAmount = buyInputs.propertyPrice - downPaymentAmount;
-  const closingCostsAmount = (buyInputs.propertyPrice * buyInputs.closingCostsPercentageBuy) / 100;
-  const monthlyPayment = calculateMonthlyMortgagePayment(
+  const downPaymentAmount = (buyInputs.vehiclePrice * buyInputs.downPaymentPercentage) / 100;
+  const loanAmount = buyInputs.vehiclePrice - downPaymentAmount;
+  const dealerFeesAmount = (buyInputs.vehiclePrice * buyInputs.dealerFeesPercentageBuy) / 100;
+  const monthlyPayment = calculateMonthlyAutoLoanPayment(
     loanAmount,
-    buyInputs.mortgageInterestRateAnnual,
-    buyInputs.mortgageTermYears
+    buyInputs.autoLoanInterestRateAnnual,
+    buyInputs.loanTermYears
   );
   
   const initialInvestmentAmount = 0; // No longer used - cash flow difference includes down payment savings
-  const taxFreeCapitalGainAmount = TAX_FREE_CAPITAL_GAINS[buyInputs.filingStatus];
+  const taxFreeCapitalGainAmount = 0; // Vehicles don't have tax-free capital gains exclusion
   
   let investmentReturnRate: number;
   if (rentInputs.selectedInvestmentOption === 'Custom') {
@@ -117,11 +117,11 @@ export function calculatePreliminaryValues(
   }
   
   return {
-    mortgage: {
+    autoLoan: {
       monthlyPayment,
       totalLoanAmount: loanAmount,
       downPaymentAmount,
-      closingCostsAmount
+      dealerFeesAmount
     },
     initialInvestmentAmount,
     taxFreeCapitalGainAmount,
@@ -135,37 +135,37 @@ export function calculatePreliminaryValues(
 export function calculateBuyScenarioForYear(
   year: number,
   buyInputs: BuyInputs,
-  mortgageBreakdown: YearlyMortgageBreakdown,
+  autoLoanBreakdown: YearlyAutoLoanBreakdown,
   preliminary: PreliminaryCalculations,
-  rentCashOutflow?: number,
+  leaseCashOutflow?: number,
   previousBuyCalculation?: YearlyBuyCalculation
 ): YearlyBuyCalculation {
-  // Current property value with appreciation
-  const propertyValue = buyInputs.propertyPrice * Math.pow(1 + buyInputs.homeAppreciationCagr / 100, year);
+  // Current vehicle value with depreciation
+  const vehicleValue = buyInputs.vehiclePrice * Math.pow(1 - buyInputs.vehicleDepreciationRate / 100, year);
   
   // Annual holding costs
-  const propertyTax = propertyValue * buyInputs.propertyTaxRateAnnual / 100;
-  const insuranceAndMaintenance = propertyValue * buyInputs.insuranceAndMaintenanceRateAnnual / 100;
-  const hoaFee = buyInputs.hoaFeeAnnual;
-  const totalHoldingCosts = propertyTax + insuranceAndMaintenance + hoaFee;
+  const insuranceAndRegistration = buyInputs.vehiclePrice * buyInputs.insuranceAndRegistrationRateAnnual / 100;
+  const maintenance = buyInputs.vehiclePrice * buyInputs.maintenanceRateAnnual / 100;
+  const fuelCosts = buyInputs.fuelCostsAnnual;
+  const totalHoldingCosts = insuranceAndRegistration + maintenance + fuelCosts;
   
-  // Mortgage payments (use actual annual payments from schedule, which will be 0 after loan is paid off)
-  const annualMortgagePayment = mortgageBreakdown.annualInterestPaid + mortgageBreakdown.annualPrincipalPaid;
+  // Auto loan payments (use actual annual payments from schedule, which will be 0 after loan is paid off)
+  const annualAutoLoanPayment = autoLoanBreakdown.annualInterestPaid + autoLoanBreakdown.annualPrincipalPaid;
 
-  // Tax savings from mortgage interest deduction
-  const taxSavingsFromDeduction = buyInputs.mortgageInterestDeduction
-    ? mortgageBreakdown.annualInterestPaid * buyInputs.marginalTaxRate / 100
+  // Tax savings from auto loan interest deduction (usually not applicable for personal use)
+  const taxSavingsFromDeduction = buyInputs.autoLoanInterestDeduction
+    ? autoLoanBreakdown.annualInterestPaid * buyInputs.marginalTaxRate / 100
     : 0;
   
   // Cash outflow calculation
   let cashOutflow: number;
   if (year === 1) {
-    cashOutflow = preliminary.mortgage.downPaymentAmount + 
-                  preliminary.mortgage.closingCostsAmount + 
-                  annualMortgagePayment + 
+    cashOutflow = preliminary.autoLoan.downPaymentAmount + 
+                  preliminary.autoLoan.dealerFeesAmount + 
+                  annualAutoLoanPayment + 
                   totalHoldingCosts;
   } else {
-    cashOutflow = annualMortgagePayment + totalHoldingCosts;
+    cashOutflow = annualAutoLoanPayment + totalHoldingCosts;
   }
   
   const adjustedCashOutflow = cashOutflow - taxSavingsFromDeduction;
@@ -173,8 +173,8 @@ export function calculateBuyScenarioForYear(
   // Additional investment portfolio for buy scenario
   let additionalInvestmentPortfolio = 0;
   let additionalInvestmentCostBasis = 0;
-  if (rentCashOutflow !== undefined) {
-    const cashFlowDifference = rentCashOutflow - adjustedCashOutflow;
+  if (leaseCashOutflow !== undefined) {
+    const cashFlowDifference = leaseCashOutflow - adjustedCashOutflow;
     const additionalInvestmentThisYear = Math.max(0, cashFlowDifference);
     
     let portfolioValueBeforeGrowth: number;
@@ -194,49 +194,49 @@ export function calculateBuyScenarioForYear(
   }
   
   // Net asset value calculations
-  const netAssetValueNotCashOut = propertyValue - mortgageBreakdown.remainingBalance + additionalInvestmentPortfolio;
+  const netAssetValueNotCashOut = vehicleValue - autoLoanBreakdown.remainingBalance + additionalInvestmentPortfolio;
   
   // Cash out scenario calculations
-  const sellingPrice = propertyValue;
+  const sellingPrice = vehicleValue;
   const sellingCostsAmount = sellingPrice * buyInputs.sellingCostsPercentageSell / 100;
   const proceedsBeforeTaxAndLoanRepayment = sellingPrice - sellingCostsAmount;
-  const capitalGainOnProperty = sellingPrice - buyInputs.propertyPrice;
-  const taxableGainOnProperty = Math.max(0, capitalGainOnProperty - preliminary.taxFreeCapitalGainAmount);
-  const taxOnPropertyGain = taxableGainOnProperty * buyInputs.longTermCapitalGainsTaxRateProperty / 100;
+  const capitalGainOnVehicle = sellingPrice - buyInputs.vehiclePrice;
+  const taxableGainOnVehicle = Math.max(0, capitalGainOnVehicle - preliminary.taxFreeCapitalGainAmount);
+  const taxOnVehicleGain = taxableGainOnVehicle * buyInputs.longTermCapitalGainsTaxRateVehicle / 100;
   
   // Calculate tax on additional investment portfolio if applicable
   let taxOnAdditionalInvestment = 0;
   let additionalInvestmentGains = 0;
   if (additionalInvestmentPortfolio > 0) {
     additionalInvestmentGains = Math.max(0, additionalInvestmentPortfolio - additionalInvestmentCostBasis);
-    taxOnAdditionalInvestment = additionalInvestmentGains * buyInputs.longTermCapitalGainsTaxRateProperty / 100;
+    taxOnAdditionalInvestment = additionalInvestmentGains * buyInputs.longTermCapitalGainsTaxRateVehicle / 100;
   }
   
   const netAssetValueCashOut = proceedsBeforeTaxAndLoanRepayment - 
-                               mortgageBreakdown.remainingBalance - 
-                               taxOnPropertyGain +
+                               autoLoanBreakdown.remainingBalance - 
+                               taxOnVehicleGain +
                                additionalInvestmentPortfolio -
                                taxOnAdditionalInvestment;
   
   return {
     year,
-    propertyValue,
+    vehicleValue,
     totalHoldingCosts,
-    propertyTax,
-    insuranceAndMaintenance,
-    hoaFee,
-    mortgagePayment: annualMortgagePayment,
-    mortgageInterest: mortgageBreakdown.annualInterestPaid,
-    mortgagePrincipal: mortgageBreakdown.annualPrincipalPaid,
+    insuranceAndRegistration,
+    maintenance,
+    fuelCosts,
+    autoLoanPayment: annualAutoLoanPayment,
+    autoLoanInterest: autoLoanBreakdown.annualInterestPaid,
+    autoLoanPrincipal: autoLoanBreakdown.annualPrincipalPaid,
     taxSavingsFromDeduction,
     cashOutflow,
     adjustedCashOutflow,
     netAssetValueNotCashOut,
     netAssetValueCashOut,
-    capitalGainOnProperty,
-    taxableGainOnProperty,
-    taxOnPropertyGain,
-    remainingMortgageBalance: mortgageBreakdown.remainingBalance,
+    capitalGainOnVehicle,
+    taxableGainOnVehicle,
+    taxOnVehicleGain,
+    remainingAutoLoanBalance: autoLoanBreakdown.remainingBalance,
     additionalInvestmentPortfolio,
     additionalInvestmentCostBasis,
     additionalInvestmentGains,
@@ -245,20 +245,20 @@ export function calculateBuyScenarioForYear(
 }
 
 /**
- * Calculate rent & invest scenario for a specific year
+ * Calculate lease & invest scenario for a specific year
  */
 export function calculateRentScenarioForYear(
   year: number,
   rentInputs: RentInputs,
   buyCalculation: YearlyBuyCalculation,
-  previousRentCalculation: YearlyRentCalculation | null,
+  previousRentCalculation: YearlyLeaseCalculation | null,
   preliminary: PreliminaryCalculations
-): YearlyRentCalculation {
-  // Current rent calculation
-  const monthlyRent = rentInputs.currentMonthlyRentAmount * 
-                      Math.pow(1 + rentInputs.rentGrowthRateAnnual / 100, year - 1);
-  const annualRentCost = monthlyRent * 12;
-  const cashOutflow = annualRentCost;
+): YearlyLeaseCalculation {
+  // Current lease calculation
+  const monthlyLease = rentInputs.currentMonthlyLeaseAmount * 
+                      Math.pow(1 + rentInputs.leaseGrowthRateAnnual / 100, year - 1);
+  const annualLeaseCost = monthlyLease * 12;
+  const cashOutflow = annualLeaseCost;
   
   // Differential cash flow for investment
   // When buy scenario costs more, the difference can be invested (positive)
@@ -294,8 +294,8 @@ export function calculateRentScenarioForYear(
   
   return {
     year,
-    monthlyRent,
-    annualRentCost,
+    monthlyLease,
+    annualLeaseCost,
     cashOutflow,
     additionalInvestmentThisYear,
     portfolioValueBeforeGrowth,
@@ -319,24 +319,24 @@ export function calculateAllScenarios(
   appSettings: AppSettings
 ): CalculationResults {
   const preliminary = calculatePreliminaryValues(buyInputs, rentInputs);
-  const mortgageSchedule = generateAmortizationSchedule(
-    preliminary.mortgage.totalLoanAmount,
-    buyInputs.mortgageInterestRateAnnual,
-    buyInputs.mortgageTermYears,
+  const autoLoanSchedule = generateAmortizationSchedule(
+    preliminary.autoLoan.totalLoanAmount,
+    buyInputs.autoLoanInterestRateAnnual,
+    buyInputs.loanTermYears,
     appSettings.projectionYears
   );
   
   const yearlyResults: YearlyCalculation[] = [];
-  let previousRentCalculation: YearlyRentCalculation | null = null;
+  let previousRentCalculation: YearlyLeaseCalculation | null = null;
   let previousBuyCalculation: YearlyBuyCalculation | undefined = undefined;
   
   for (let year = 1; year <= appSettings.projectionYears; year++) {
-    const mortgageBreakdown = mortgageSchedule[year - 1];
+    const autoLoanBreakdown = autoLoanSchedule[year - 1];
     
-    // First pass: Calculate initial buy scenario (without rent cash flow considerations)
-    const initialBuyCalculation = calculateBuyScenarioForYear(year, buyInputs, mortgageBreakdown, preliminary);
+    // First pass: Calculate initial buy scenario (without lease cash flow considerations)
+    const initialBuyCalculation = calculateBuyScenarioForYear(year, buyInputs, autoLoanBreakdown, preliminary);
     
-    // Calculate rent scenario based on initial buy calculation
+    // Calculate lease scenario based on initial buy calculation
     const rentCalculation = calculateRentScenarioForYear(
       year, 
       rentInputs, 
@@ -345,11 +345,11 @@ export function calculateAllScenarios(
       preliminary
     );
     
-    // Second pass: Calculate final buy scenario with rent cash flow considerations
+    // Second pass: Calculate final buy scenario with lease cash flow considerations
     const finalBuyCalculation = calculateBuyScenarioForYear(
       year, 
       buyInputs, 
-      mortgageBreakdown, 
+      autoLoanBreakdown, 
       preliminary,
       rentCalculation.cashOutflow,
       previousBuyCalculation
@@ -380,23 +380,23 @@ export function generateCalculationFormulas(
   rentInputs: RentInputs,
   preliminary: PreliminaryCalculations
 ): CalculationFormulas {
-  const P = preliminary.mortgage.totalLoanAmount;
-  const r = buyInputs.mortgageInterestRateAnnual;
-  const n = buyInputs.mortgageTermYears;
+  const P = preliminary.autoLoan.totalLoanAmount;
+  const r = buyInputs.autoLoanInterestRateAnnual;
+  const n = buyInputs.loanTermYears;
   const i = r / 100 / 12;
   const totalPayments = n * 12;
   
   return {
-    monthlyMortgagePayment: `M = ${P.toLocaleString()} × [${(i * 100).toFixed(4)}% × (1 + ${(i * 100).toFixed(4)}%)^${totalPayments}] / [(1 + ${(i * 100).toFixed(4)}%)^${totalPayments} - 1] = $${preliminary.mortgage.monthlyPayment.toLocaleString()}`,
+    monthlyAutoLoanPayment: `M = ${P.toLocaleString()} × [${(i * 100).toFixed(4)}% × (1 + ${(i * 100).toFixed(4)}%)^${totalPayments}] / [(1 + ${(i * 100).toFixed(4)}%)^${totalPayments} - 1] = $${preliminary.autoLoan.monthlyPayment.toLocaleString()}`,
     
-    propertyValueGrowth: `Property Value = $${buyInputs.propertyPrice.toLocaleString()} × (1 + ${buyInputs.homeAppreciationCagr}%)^Year`,
+    vehicleValueDepreciation: `Vehicle Value = $${buyInputs.vehiclePrice.toLocaleString()} × (1 - ${buyInputs.vehicleDepreciationRate}%)^Year`,
     
     investmentGrowth: `Portfolio Value = (Previous Value + New Investment) × (1 + ${preliminary.investmentReturnRate}%)`,
     
     taxCalculations: {
-      mortgageInterestDeduction: `Tax Savings = Annual Interest × ${buyInputs.marginalTaxRate}% = $X × ${buyInputs.marginalTaxRate}% = $Y`,
+      autoLoanInterestDeduction: `Tax Savings = Annual Interest × ${buyInputs.marginalTaxRate}% = $X × ${buyInputs.marginalTaxRate}% = $Y`,
       
-      propertyCapitalGains: `Property Tax = max(0, (Sale Price - $${buyInputs.propertyPrice.toLocaleString()}) - $${preliminary.taxFreeCapitalGainAmount.toLocaleString()}) × ${buyInputs.longTermCapitalGainsTaxRateProperty}%`,
+      vehicleCapitalGains: `Vehicle Tax = max(0, (Sale Price - $${buyInputs.vehiclePrice.toLocaleString()}) - $${preliminary.taxFreeCapitalGainAmount.toLocaleString()}) × ${buyInputs.longTermCapitalGainsTaxRateVehicle}%`,
       
       investmentCapitalGains: `Investment Tax = max(0, Portfolio Value - Total Invested) × ${rentInputs.longTermCapitalGainsTaxRateInvestment}%`
     }
