@@ -1,0 +1,222 @@
+{
+  "header": {
+    "title": {
+      "prefix": "Should I ",
+      "buy": "Buy",
+      "middle": " or ",
+      "rent": "Rent",
+      "suffix": " a House?"
+    },
+    "description": "Instantly see which option leaves you richer in the future.",
+    "language": {
+      "english": "🇺🇸 English",
+      "chinese": "🇨🇳 中文"
+    },
+    "github": "GitHub",
+    "githubTitle": "View on GitHub"
+  },
+  "hero": {
+    "conclusion": {
+      "buying": "Buying",
+      "renting": "Renting",
+      "winsByLabel": "wins by",
+      "overLabel": "in",
+      "yearsLabel": "years"
+    },
+    "timeHorizon": {
+      "label": "View projection for:",
+      "options": {
+        "10": "10 years",
+        "15": "15 years",
+        "20": "20 years",
+        "30": "30 years"
+      }
+    },
+    "explanation": {
+      "buyPrefix": "If you buy a",
+      "buyMiddle": "home today (with",
+      "buyDownPayment": "down payment) and it grows to",
+      "buyMiddle2": "in",
+      "buySuffix": "years, your net worth would be",
+      "rentPrefix": "If you rent for",
+      "rentSuffix": "/month and invest the difference, your net worth would be"
+    },
+    "assumptions": {
+      "title": "Key Assumptions",
+      "homeValue": "Home value:",
+      "currentRent": "Current rent:",
+      "downPayment": "Down payment:",
+      "investmentReturns": "Investment returns:",
+      "homeAppreciation": "Home appreciation:",
+      "rentIncrease": "Rent increase:"
+    },
+    "netWorth": {
+      "buyTitle": "Buy a Home",
+      "rentTitle": "Rent + Invest",
+      "netWorthIn": "Net Worth in",
+      "years": "Years",
+      "buyExplanation": {
+        "youOwn": "You own a",
+        "homeAndOwe": "home and owe",
+        "onMortgage": "on your mortgage",
+        "alsoInvested": "You have also invested",
+        "nowWorth": "and now it's worth"
+      },
+      "rentExplanation": {
+        "youInvested": "You have invested",
+        "nowWorth": "and now it's worth"
+      }
+    },
+    "cta": {
+      "editInputs": "Edit My Inputs"
+    },
+    "methodology": {
+      "button": "How is this calculated?",
+      "buttonTitle": "Learn about our calculation methodology",
+      "buttonPrompt": "How is this calculated?",
+      "title": "How Is This Calculated?",
+      "closeButton": "Got it",
+      "intro": "Our calculator uses a \"same money in, see who ends up richer\" approach to ensure a fair comparison between buying and renting.",
+      "corePrinciple": {
+        "title": "Core Principle",
+        "description": "Both scenarios assume the same total cash outflow. When one option costs less in a given year, the savings are automatically invested. This captures the true opportunity cost of each decision."
+      },
+      "howItWorks": {
+        "title": "How It Works",
+        "step1": {
+          "title": "Track All Cash Outflows",
+          "description": "We calculate every dollar you spend in both scenarios:",
+          "buyItems": "Buy: Down payment, closing costs, mortgage payments (principal + interest), property taxes, insurance, maintenance, HOA fees",
+          "rentItems": "Rent: Monthly rent payments"
+        },
+        "step2": {
+          "title": "Invest the Difference",
+          "description": "Each year, whichever option costs less gets to invest the difference. This ensures both paths spend the same total amount, allowing for a fair comparison of final outcomes."
+        },
+        "step3": {
+          "title": "Calculate Final Net Worth",
+          "description": "At the end of your chosen time horizon, we calculate your net worth for each scenario: property value minus mortgage balance (plus any investments) for buying, and investment portfolio value for renting. Both values account for applicable taxes."
+        }
+      },
+      "example": {
+        "title": "Quick Example",
+        "year1": {
+          "label": "Year 1:",
+          "buy": "Buy: $100k down payment + $10k closing + $30k mortgage + $10k holding = $150k",
+          "rent": "Rent: $24k annual rent = $24k",
+          "result": "→ Rent scenario invests the $126k difference"
+        },
+        "laterYears": {
+          "label": "Later Years:",
+          "description": "If buying costs $40k/year but renting costs $30k/year, the rent scenario invests that $10k difference each year. If renting ever costs more, then buying gets to invest the difference instead."
+        }
+      },
+      "whatsIncluded": {
+        "title": "What's Included in the Calculation?",
+        "description": "All costs flow through to the final comparison via the differential investment mechanism:",
+        "items": {
+          "mortgagePayments": "Mortgage payments (principal + interest)",
+          "propertyTaxes": "Property taxes",
+          "insurance": "Insurance & maintenance",
+          "maintenance": "HOA fees and other holding costs",
+          "closingCosts": "Closing costs and selling costs",
+          "taxBenefits": "Tax benefits (mortgage interest deduction)",
+          "capitalGains": "Capital gains taxes (property & investments)",
+          "sellingCosts": "Transaction costs (buying & selling)"
+        }
+      },
+      "keyTakeaway": {
+        "title": "Key Takeaway",
+        "description": "The \"Net Worth Projection\" shows your final wealth under a \"same money in\" constraint. All spending (interest, taxes, holding costs) is fully accounted for through the investment of cost differences. You're seeing which option builds more wealth when you spend the same total amount."
+      }
+    }
+  },
+  "inputs": {
+    "title": "Inputs",
+    "cityPresets": "City Presets",
+    "cityPresetsDescription": "City presets use historical medians from the last 10 years. Default price is the 2025 median; CAGR is computed from 2015–2025 medians. Bay Area cities use CRMLS (Single Family Home; 3+ beds; 1+ bath). Other regions use Zillow/Redfin single-family medians for the same window. Does NOT predict future market conditions.",
+    "tabs": {
+      "buy": "Buy",
+      "rent": "Rent & Invest"
+    },
+    "buy": {
+      "homePrice": "Home Price",
+      "downPayment": "Down Payment",
+      "mortgageRate": "Mortgage Interest Rate",
+      "mortgageTerm": "Mortgage Term",
+      "homeAppreciation": "Expected Annual Home Appreciation",
+      "advancedOptions": "Advanced Options",
+      "transactionCosts": "Buying/Selling Transaction Costs",
+      "closingCosts": "Closing Costs (Current Buy)",
+      "sellingCosts": "Selling Costs (Future Sale)",
+      "holdingCosts": "Holding Costs (Annual)",
+      "propertyTax": "Property Tax Rate",
+      "insuranceMaintenance": "Insurance & Maintenance",
+      "hoaFee": "HOA Fee",
+      "taxImplications": "Tax Implications",
+      "marginalTaxRate": "Marginal Income Tax Rate",
+      "mortgageDeduction": "Claim Mortgage Interest Deduction",
+      "capitalGainsTax": "Capital Gains Tax Rate",
+      "filingStatus": "Filing Status",
+      "married": "Married",
+      "single": "Single",
+      "switchToRent": "Switch to Rent & Invest",
+      "years": "Years"
+    },
+    "rent": {
+      "monthlyRent": "Monthly Rent",
+      "rentIncrease": "Expected Annual Rent Increase",
+      "sameAsAppreciation": "Same as home appreciation rate",
+      "investmentReturn": "Annual Investment Return",
+      "capitalGainsTax": "Capital Gains Tax Rate",
+      "switchToBuy": "Switch to Buy"
+    },
+    "status": {
+      "updating": "Updating calculations...",
+      "upToDate": "Results are up to date"
+    }
+  },
+  "share": {
+    "title": "Share This Result",
+    "copying": "Copying...",
+    "copied": "Link copied to clipboard!",
+    "failed": "Failed to copy link to clipboard"
+  },
+  "charts": {
+    "netWorth": {
+      "title": "Net Worth Projection",
+      "description": "Compare long-term financial outcomes over time",
+      "cashOut": "Cash Out",
+      "years": "Years",
+      "netWorthLabel": "Net Worth",
+      "buySeriesName": "Buy a Home",
+      "rentSeriesName": "Rent + Invest"
+    },
+    "cashFlow": {
+      "title": "Cash Outflow Comparison",
+      "annualDescription": "How much you spend each year in both scenarios",
+      "cumulativeDescription": "Total amount spent over time in both scenarios",
+      "viewModes": {
+        "annual": "Annual",
+        "cumulative": "Cumulative"
+      },
+      "years": "Years",
+      "annualOutflow": "Annual Cash Outflow",
+      "cumulativeOutflow": "Cumulative Cash Outflow",
+      "series": {
+        "homeCosts": "Home Ownership Costs",
+        "investmentBuy": "Investment (Buy)",
+        "rentCosts": "Rent Costs",
+        "investmentRent": "Investment (Rent)"
+      },
+      "explanationTitle": "How to read this chart:",
+      "annualExplanation": "Each bar shows your yearly cash spending. When one option costs more, we treat the difference as extra investment in the other option. This ensures that the total cash spent in both options is the same.",
+      "cumulativeExplanation": "Each bar shows your cumulative cash spending. For each year, when one option costs more, we treat the difference as extra investment in the other option. This ensures that the total cash spent in both options is the same."
+    }
+  },
+  "footer": {
+    "copyright": "© 2025 Buy vs. Rent Financial Calculator",
+    "dataCreditsPrefix": "Special thanks to ",
+    "dataCreditsSuffix": " for Bay Area housing data support"
+  }
+}

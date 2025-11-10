@@ -1,0 +1,219 @@
+{
+  "header": {
+    "title": {
+      "prefix": "我该",
+      "buy": "买房",
+      "middle": "还是",
+      "rent": "租房",
+      "suffix": "？"
+    },
+    "description": "比较哪种选择让未来的你更富有",
+    "language": {
+      "english": "🇺🇸 English",
+      "chinese": "🇨🇳 中文"
+    },
+    "github": "GitHub",
+    "githubTitle": "在 GitHub 上查看"
+  },
+  "hero": {
+    "conclusion": {
+      "buying": "买房",
+      "renting": "租房"
+    },
+    "timeHorizon": {
+      "label": "查看未来：",
+      "options": {
+        "10": "10年",
+        "15": "15年",
+        "20": "20年",
+        "30": "30年"
+      }
+    },
+    "explanation": {
+      "buyPrefix": "如果你今天购买一套",
+      "buyMiddle": "的房子（首付",
+      "buyDownPayment": "），在",
+      "buyMiddle2": "年后增值到",
+      "buySuffix": "，你的净资产将达到",
+      "rentPrefix": "如果你每月支付",
+      "rentSuffix": "租金并投资差额，你的净资产将达到"
+    },
+    "assumptions": {
+      "title": "关键假设",
+      "homeValue": "当前房屋价格：",
+      "currentRent": "当前租金：",
+      "downPayment": "首付比例：",
+      "investmentReturns": "投资回报：",
+      "homeAppreciation": "年房价涨幅：",
+      "rentIncrease": "年租金涨幅："
+    },
+    "netWorth": {
+      "buyTitle": "买房",
+      "rentTitle": "租房 + 投资",
+      "netWorthIn": "净资产（",
+      "years": "年后）",
+      "buyExplanation": {
+        "youOwn": "你有一套价值",
+        "homeAndOwe": "的房子，剩余",
+        "onMortgage": "房贷未还清",
+        "alsoInvested": "你还累计投资了",
+        "nowWorth": "，现在价值"
+      },
+      "rentExplanation": {
+        "youInvested": "你累计投资了",
+        "nowWorth": "，现在价值"
+      }
+    },
+    "cta": {
+      "editInputs": "编辑输入参数"
+    },
+    "methodology": {
+      "button": "计算方法",
+      "buttonTitle": "了解计算方法",
+      "buttonPrompt": "这是如何计算的？",
+      "title": "计算方法说明",
+      "closeButton": "明白了",
+      "intro": "我们的计算器使用\"同样的钱投入，看谁最终更富有\"的对比方法，确保买房和租房之间的公平比较。",
+      "corePrinciple": {
+        "title": "核心原则",
+        "description": "两种选择假设总现金支出相同。当某一年一种选择的成本更低时，节省的资金会自动用于投资。这种方法捕捉了每个决策的真实机会成本。"
+      },
+      "howItWorks": {
+        "title": "计算逻辑",
+        "step1": {
+          "title": "追踪所有现金支出",
+          "description": "我们计算两种选择下你的每一笔支出：",
+          "buyItems": "买房：首付、过户费、房贷（本金 + 利息）、房产税、保险、维护费、HOA 管理费",
+          "rentItems": "租房：月租金"
+        },
+        "step2": {
+          "title": "投资差额",
+          "description": "每年，成本较低的选择会将省下的差额用于投资。这确保了两种选择的总支出相同，从而实现最终结果的公平比较。"
+        },
+        "step3": {
+          "title": "计算最终净资产",
+          "description": "在你选择的时间范围结束时，我们计算每种选择的净资产：买房场景为房产价值减去剩余房贷余额（加上任何额外投资），租房场景为投资组合价值。两个值都考虑了相应的税费。"
+        }
+      },
+      "example": {
+        "title": "举个例子",
+        "year1": {
+          "label": "第 1 年：",
+          "buy": "买房：10万首付 + 1万过户费 + 3万房贷 + 1万持有成本 = 15万",
+          "rent": "租房：2.4万年租金 = 2.4万",
+          "result": "→ 租房场景将12.6万的差额用于投资"
+        },
+        "laterYears": {
+          "label": "后续年份：",
+          "description": "如果买房每年花费4万，而租房每年花费3万，租房场景每年会投资这1万的差额。如果某年租房成本更高，那么买房场景就会投资差额。"
+        }
+      },
+      "whatsIncluded": {
+        "title": "计算包含哪些项目？",
+        "description": "所有成本都通过差额投资机制体现在最终比较中：",
+        "items": {
+          "mortgagePayments": "房贷（本金 + 利息）",
+          "propertyTaxes": "房产税",
+          "insurance": "保险和维护费",
+          "maintenance": "HOA 费用和其他持有成本",
+          "closingCosts": "过户费用和出售费用",
+          "taxBenefits": "税收优惠（房贷利息抵税）",
+          "capitalGains": "资本利得税（房产和投资）",
+          "sellingCosts": "交易成本（购买和出售）"
+        }
+      },
+      "keyTakeaway": {
+        "title": "核心要点",
+        "description": "\"净资产预测\"显示的是在\"相同资金投入\"约束下的最终财富。所有支出（利息、税费、持有成本）都通过成本差额的投资得到完全考虑。你看到的是在投入相同总金额的情况下，哪种选择能创造更多财富。"
+      }
+    }
+  },
+  "inputs": {
+    "title": "输入参数",
+    "cityPresets": "城市预设",
+    "cityPresetsDescription": "数据基于近10年的历史中位数。默认房价为 2025 年中位数；CAGR 按 2015–2025 年中位数计算。湾区城市数据来自 CRMLS （Single Family Home；3+卧；1+卫），其他地区使用 Zillow/Redfin 的独栋价格中位数。数据仅供参考，不代表未来市场状况。",
+    "tabs": {
+      "buy": "买房",
+      "rent": "租房 + 投资"
+    },
+    "buy": {
+      "homePrice": "房屋价格",
+      "downPayment": "首付款",
+      "mortgageRate": "房贷利率",
+      "mortgageTerm": "贷款期限",
+      "homeAppreciation": "年房价涨幅",
+      "advancedOptions": "更多选项",
+      "transactionCosts": "交易成本",
+      "closingCosts": "过户费用（当前购买）",
+      "sellingCosts": "出售费用（未来出售）",
+      "holdingCosts": "年度持有成本",
+      "propertyTax": "房产税率",
+      "insuranceMaintenance": "保险与维护费率",
+      "hoaFee": "HOA 管理费",
+      "taxImplications": "税务影响",
+      "marginalTaxRate": "边际所得税率",
+      "mortgageDeduction": "开启房贷利息抵税",
+      "capitalGainsTax": "资本利得税率",
+      "filingStatus": "申报状态",
+      "married": "已婚",
+      "single": "单身",
+      "switchToRent": "切换到租房 + 投资",
+      "years": "年"
+    },
+    "rent": {
+      "monthlyRent": "月租金",
+      "rentIncrease": "年租金涨幅",
+      "sameAsAppreciation": "与房价涨幅相同",
+      "investmentReturn": "年投资回报率",
+      "capitalGainsTax": "资本利得税率",
+      "switchToBuy": "切换到买房"
+    },
+    "status": {
+      "updating": "正在更新计算...",
+      "upToDate": "结果已是最新"
+    }
+  },
+  "share": {
+    "title": "分享这个结果",
+    "copying": "复制中...",
+    "copied": "分享链接已复制到剪贴板！",
+    "failed": "复制链接到剪贴板失败"
+  },
+  "charts": {
+    "netWorth": {
+      "title": "净资产预测",
+      "description": "比较两种选择下净资产随时间的变化",
+      "cashOut": "现金套现",
+      "years": "年份",
+      "netWorthLabel": "净资产",
+      "buySeriesName": "买房",
+      "rentSeriesName": "租房 + 投资"
+    },
+    "cashFlow": {
+      "title": "现金支出对比",
+      "annualDescription": "对比两种选择下每年的支出",
+      "cumulativeDescription": "对比两种选择下的累积支出",
+      "viewModes": {
+        "annual": "年度",
+        "cumulative": "累计"
+      },
+      "years": "年份",
+      "annualOutflow": "年度现金支出",
+      "cumulativeOutflow": "累计现金支出",
+      "series": {
+        "homeCosts": "买房所需支出",
+        "investmentBuy": "投资（买房）",
+        "rentCosts": "租房所需支出",
+        "investmentRent": "投资（租房）"
+      },
+      "explanationTitle": "说明：",
+      "annualExplanation": "柱状图显示你每年的现金支出。当一种选择的支出更高时，我们将多出的差额视作另一种选择的额外投资，以此来确保两种选择下你投入的现金始终是相同的。",
+      "cumulativeExplanation": "柱状图显示你累计的现金支出。对于每一年，当一种选择的支出更高时，我们将多出的差额视作另一种选择的额外投资，以此来确保两种选择下你投入的现金始终是相同的。"
+    }
+  },
+  "footer": {
+    "copyright": "© 2025 买房vs租房财务计算器",
+    "dataCreditsPrefix": "特别感谢 ",
+    "dataCreditsSuffix": " 提供湾区房价数据支持"
+  }
+}
