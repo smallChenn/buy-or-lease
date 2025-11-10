@@ -1,8 +1,9 @@
-import { createElement, useState } from 'react';
+import { useState } from 'react';
 import { useApp } from '../../contexts';
 import { useCalculations } from '../../hooks';
 import { formatCurrency } from '../../lib/inputUtils';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const DebugPanel = () => {
   const { state } = useApp();
   const { results, getNetWorthComparison, getBreakEvenYear } = useCalculations();
@@ -278,7 +279,7 @@ const DebugPanel = () => {
                     <span className="font-medium">{formatCurrency(selectedYearData.buy.vehicleValue)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Selling Costs ({state.buyInputs.sellingCostsPercentageSell}%):</span>
+                    <span>Selling Costs ({state.buyInputs.sellingCostsPercentage}%):</span>
                     <span className="font-medium">-{formatCurrency(selectedYearData.buy.vehicleValue * state.buyInputs.sellingCostsPercentage / 100)}</span>
                   </div>
                   <div className="flex justify-between">

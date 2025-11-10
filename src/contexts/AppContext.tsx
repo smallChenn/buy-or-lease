@@ -135,7 +135,7 @@ export const getInvestmentReturnRate = (inputs: RentInputs): number => {
 
 // Helper function to get tax-free capital gain amount
 // Note: Vehicles don't have tax-free thresholds like homes, so this returns 0
-export const getTaxFreeCapitalGainAmount = (filingStatus: FilingStatus): number => {
+export const getTaxFreeCapitalGainAmount = (): number => {
   // Vehicles don't have the same tax-free capital gains exclusion as primary residences
   return 0;
 };

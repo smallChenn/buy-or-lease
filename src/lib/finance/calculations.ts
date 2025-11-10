@@ -8,7 +8,7 @@ import type {
   YearlyAutoLoanBreakdown,
   CalculationFormulas
 } from './types';
-import { TAX_FREE_CAPITAL_GAINS, INVESTMENT_OPTIONS } from '../constants';
+import { INVESTMENT_OPTIONS } from '../constants';
 
 /**
  * Calculate monthly auto loan payment using standard PMT formula
