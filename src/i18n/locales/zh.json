@@ -4,8 +4,8 @@
       "prefix": "我该",
       "buy": "买车",
       "middle": "还是",
-      "rent": "租车",
-      "suffix": "？"
+      "rent": "租赁",
+      "suffix": "汽车？"
     },
     "description": "比较哪种选择让未来的你更富有",
     "language": {
@@ -18,7 +18,7 @@
   "hero": {
     "conclusion": {
       "buying": "买车",
-      "renting": "租车"
+      "renting": "租赁"
     },
     "timeHorizon": {
       "label": "查看未来：",
@@ -36,20 +36,20 @@
       "buyMiddle2": "年后折旧到",
       "buySuffix": "，你的净资产将达到",
       "rentPrefix": "如果你每月支付",
-      "rentSuffix": "租车费用并投资差额，你的净资产将达到"
+      "rentSuffix": "租赁费用并投资差额，你的净资产将达到"
     },
     "assumptions": {
       "title": "关键假设",
       "homeValue": "汽车价值：",
-      "currentRent": "当前租车费用：",
+      "currentRent": "当前租赁费用：",
       "downPayment": "首付比例：",
       "investmentReturns": "投资回报：",
       "homeAppreciation": "年车辆折旧率：",
-      "rentIncrease": "年租车费用涨幅："
+      "rentIncrease": "年租赁费用涨幅："
     },
     "netWorth": {
       "buyTitle": "买车",
-      "rentTitle": "租车 + 投资",
+      "rentTitle": "租赁 + 投资",
       "netWorthIn": "净资产（",
       "years": "年后）",
       "buyExplanation": {
@@ -73,7 +73,7 @@
       "buttonPrompt": "这是如何计算的？",
       "title": "计算方法说明",
       "closeButton": "明白了",
-      "intro": "我们的计算器使用\"同样的钱投入，看谁最终更富有\"的对比方法，确保买车和租车之间的公平比较。",
+      "intro": "我们的计算器使用\"同样的钱投入，看谁最终更富有\"的对比方法，确保买车和租赁之间的公平比较。",
       "corePrinciple": {
         "title": "核心原则",
         "description": "两种选择假设总现金支出相同。当某一年一种选择的成本更低时，节省的资金会自动用于投资。这种方法捕捉了每个决策的真实机会成本。"
@@ -84,7 +84,7 @@
           "title": "追踪所有现金支出",
           "description": "我们计算两种选择下你的每一笔支出：",
           "buyItems": "买车：首付、经销商费用、汽车贷款（本金 + 利息）、保险、维护费、注册费、燃油费",
-          "rentItems": "租车：月租车费用"
+          "rentItems": "租赁：月租赁费用"
         },
         "step2": {
           "title": "投资差额",
@@ -92,7 +92,7 @@
         },
         "step3": {
           "title": "计算最终净资产",
-          "description": "在你选择的时间范围结束时，我们计算每种选择的净资产：买车场景为车辆价值减去剩余汽车贷款余额（加上任何额外投资），租车场景为投资组合价值。两个值都考虑了相应的税费。"
+          "description": "在你选择的时间范围结束时，我们计算每种选择的净资产：买车场景为车辆价值减去剩余汽车贷款余额（加上任何额外投资），租赁场景为投资组合价值。两个值都考虑了相应的税费。"
         }
       },
       "example": {
@@ -100,12 +100,12 @@
         "year1": {
           "label": "第 1 年：",
           "buy": "买车：2万首付 + 0.2万经销商费用 + 1.2万汽车贷款 + 0.3万保险 = 3.7万",
-          "rent": "租车：0.6万年租车费用 = 0.6万",
-          "result": "→ 租车场景将3.1万的差额用于投资"
+          "rent": "租赁：0.6万年租赁费用 = 0.6万",
+          "result": "→ 租赁场景将3.1万的差额用于投资"
         },
         "laterYears": {
           "label": "后续年份：",
-          "description": "如果买车每年花费0.8万，而租车每年花费0.6万，租车场景每年会投资这0.2万的差额。如果某年租车成本更高，那么买车场景就会投资差额。"
+          "description": "如果买车每年花费0.8万，而租赁每年花费0.6万，租赁场景每年会投资这0.2万的差额。如果某年租赁成本更高，那么买车场景就会投资差额。"
         }
       },
       "whatsIncluded": {
@@ -157,12 +157,12 @@
       "filingStatus": "申报状态",
       "married": "已婚",
       "single": "单身",
-      "switchToRent": "切换到租车 + 投资",
+      "switchToRent": "切换到租赁 + 投资",
       "years": "年"
     },
     "rent": {
-      "monthlyRent": "月租车费用",
-      "rentIncrease": "年租车费用涨幅",
+      "monthlyRent": "月租赁费用",
+      "rentIncrease": "年租赁费用涨幅",
       "sameAsAppreciation": "与车辆折旧率相同",
       "investmentReturn": "年投资回报率",
       "capitalGainsTax": "资本利得税率",
@@ -203,8 +203,8 @@
       "series": {
         "homeCosts": "买车所需支出",
         "investmentBuy": "投资（买车）",
-        "rentCosts": "租车所需支出",
-        "investmentRent": "投资（租车）"
+        "rentCosts": "租赁所需支出",
+        "investmentRent": "投资（租赁）"
       },
       "explanationTitle": "说明：",
       "annualExplanation": "柱状图显示你每年的现金支出。当一种选择的支出更高时，我们将多出的差额视作另一种选择的额外投资，以此来确保两种选择下你投入的现金始终是相同的。",
@@ -212,7 +212,7 @@
     }
   },
   "footer": {
-    "copyright": "© 2025 买车vs租车计算器",
+    "copyright": "© 2025 买车vs租赁计算器",
     "dataCreditsPrefix": "特别感谢 ",
     "dataCreditsSuffix": " 提供汽车市场数据支持"
   }
