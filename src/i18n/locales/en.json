@@ -166,7 +166,7 @@
     "rent": {
       "monthlyRent": "Monthly Lease",
       "rentIncrease": "Expected Annual Lease Increase",
-      "sameAsAppreciation": "Same as vehicle depreciation rate",
+      "sameAsDepreciation": "Same as vehicle depreciation rate",
       "investmentReturn": "Annual Investment Return",
       "capitalGainsTax": "Capital Gains Tax Rate",
       "switchToBuy": "Switch to Buy"

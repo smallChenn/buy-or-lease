@@ -22,17 +22,17 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
   const [showAdvanced, setShowAdvanced] = useState(false);
 
   const validationConfig: InputValidationConfig<BuyInputsType> = {
-    propertyPrice: VALIDATION_LIMITS.PROPERTY_PRICE,
-    hoaFeeAnnual: VALIDATION_LIMITS.HOA_FEE,
+    carPrice: VALIDATION_LIMITS.PROPERTY_PRICE,
+    registrationAndFuelAnnual: VALIDATION_LIMITS.HOA_FEE,
     downPaymentPercentage: VALIDATION_LIMITS.PERCENTAGE,
-    closingCostsPercentageBuy: VALIDATION_LIMITS.PERCENTAGE,
-    sellingCostsPercentageSell: VALIDATION_LIMITS.PERCENTAGE,
-    propertyTaxRateAnnual: VALIDATION_LIMITS.PERCENTAGE,
-    insuranceAndMaintenanceRateAnnual: VALIDATION_LIMITS.PERCENTAGE,
+    dealerFeesPercentage: VALIDATION_LIMITS.PERCENTAGE,
+    sellingCostsPercentage: VALIDATION_LIMITS.PERCENTAGE,
+    insuranceAndRegistrationRateAnnual: VALIDATION_LIMITS.PERCENTAGE,
+    maintenanceAndFuelRateAnnual: VALIDATION_LIMITS.PERCENTAGE,
     marginalTaxRate: VALIDATION_LIMITS.PERCENTAGE,
-    longTermCapitalGainsTaxRateProperty: VALIDATION_LIMITS.PERCENTAGE,
-    mortgageInterestRateAnnual: VALIDATION_LIMITS.POSITIVE_NUMBER,
-    homeAppreciationCagr: VALIDATION_LIMITS.POSITIVE_NUMBER,
+    longTermCapitalGainsTaxRateVehicle: VALIDATION_LIMITS.PERCENTAGE,
+    autoLoanInterestRateAnnual: VALIDATION_LIMITS.POSITIVE_NUMBER,
+    carDepreciationRate: VALIDATION_LIMITS.POSITIVE_NUMBER,
   };
 
   const { handleInputChange, handleNumberInputChange, handleNumberInputBlur, getDisplayValue, formatDisplayValue } =
@@ -47,7 +47,7 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
     const currentNum = typeof currentValue === "string" ? parseFormattedNumber(currentValue) : currentValue;
 
     switch (field) {
-      case "propertyPrice": {
+      case "carPrice": {
         const min = Math.min(SLIDER_LIMITS.PROPERTY_PRICE.MIN, currentNum);
         const max = Math.max(SLIDER_LIMITS.PROPERTY_PRICE.MAX, currentNum);
         return {
@@ -58,7 +58,7 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
           maxLabel: max < 1000000 ? `$${Math.round(max / 1000)}K` : `$${(max / 1000000).toFixed(1)}M`,
         };
       }
-      case "mortgageInterestRateAnnual": {
+      case "autoLoanInterestRateAnnual": {
         const min = Math.min(SLIDER_LIMITS.MORTGAGE_INTEREST_RATE.MIN, currentNum);
         const max = Math.max(SLIDER_LIMITS.MORTGAGE_INTEREST_RATE.MAX, currentNum);
         return {
@@ -69,7 +69,7 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
           maxLabel: `${max}%`,
         };
       }
-      case "homeAppreciationCagr": {
+      case "carDepreciationRate": {
         const min = Math.min(SLIDER_LIMITS.HOME_APPRECIATION.MIN, currentNum);
         const max = Math.max(SLIDER_LIMITS.HOME_APPRECIATION.MAX, currentNum);
         return {
@@ -86,7 +86,7 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
   };
 
   const calculateDownPaymentAmount = () => {
-    return (buyInputs.propertyPrice * buyInputs.downPaymentPercentage) / 100;
+    return (buyInputs.carPrice * buyInputs.downPaymentPercentage) / 100;
   };
 
   return (
@@ -94,28 +94,28 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
       {/* Property Price */}
       <div>
         <div className="flex justify-between items-center mb-3">
-          <label className="text-sm font-medium text-dark-700">{t("inputs.buy.homePrice")}</label>
+          <label className="text-sm font-medium text-dark-700">{t("inputs.buy.carPrice")}</label>
           <div className="flex items-center space-x-2">
             <span className="text-xs text-dark-500">$</span>
             <input
               type="text"
-              value={formatDisplayValue("propertyPrice", ["propertyPrice", "hoaFeeAnnual"])}
+              value={formatDisplayValue("carPrice", ["carPrice", "registrationAndFuelAnnual"])}
               onChange={(e) => {
                 const rawValue = e.target.value.replace(/,/g, "");
-                handleNumberInputChange("propertyPrice", rawValue, (val) => parseFormattedNumber(val));
+                handleNumberInputChange("carPrice", rawValue, (val) => parseFormattedNumber(val));
               }}
-              onBlur={() => handleNumberInputBlur("propertyPrice", (val) => parseFormattedNumber(val))}
+              onBlur={() => handleNumberInputBlur("carPrice", (val) => parseFormattedNumber(val))}
               className="w-28 px-2 py-1 text-sm font-semibold text-primary-700 bg-primary-100 border border-primary-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 text-center"
               placeholder="2,500,000"
             />
           </div>
         </div>
         {(() => {
-          const limits = getSliderLimits("propertyPrice", buyInputs.propertyPrice);
+          const limits = getSliderLimits("carPrice", buyInputs.carPrice);
           return (
             <SliderInput
-              value={buyInputs.propertyPrice}
-              onChange={(value) => handleInputChange("propertyPrice", value)}
+              value={buyInputs.carPrice}
+              onChange={(value) => handleInputChange("carPrice", value)}
               min={limits?.min || SLIDER_LIMITS.PROPERTY_PRICE.MIN}
               max={limits?.max || SLIDER_LIMITS.PROPERTY_PRICE.MAX}
               step={limits?.step || SLIDER_LIMITS.PROPERTY_PRICE.STEP}
@@ -159,15 +159,15 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
       {/* Interest Rate */}
       <div>
         <div className="flex justify-between items-center mb-3">
-          <label className="text-sm font-medium text-dark-700">{t("inputs.buy.mortgageRate")}</label>
+          <label className="text-sm font-medium text-dark-700">{t("inputs.buy.autoLoanRate")}</label>
           <div className="flex items-center space-x-2">
             <input
               type="number"
-              value={getDisplayValue("mortgageInterestRateAnnual")}
+              value={getDisplayValue("autoLoanInterestRateAnnual")}
               onChange={(e) =>
-                handleNumberInputChange("mortgageInterestRateAnnual", e.target.value, (val) => Number(val))
+                handleNumberInputChange("autoLoanInterestRateAnnual", e.target.value, (val) => Number(val))
               }
-              onBlur={() => handleNumberInputBlur("mortgageInterestRateAnnual", (val) => Number(val))}
+              onBlur={() => handleNumberInputBlur("autoLoanInterestRateAnnual", (val) => Number(val))}
               className="w-16 px-2 py-1 text-sm font-semibold text-primary-700 bg-primary-100 border border-primary-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               min="0"
               step="0.25"
@@ -176,17 +176,17 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
           </div>
         </div>
         {(() => {
-          const limits = getSliderLimits("mortgageInterestRateAnnual", buyInputs.mortgageInterestRateAnnual);
+          const limits = getSliderLimits("autoLoanInterestRateAnnual", buyInputs.autoLoanInterestRateAnnual);
           return (
             <>
               <input
                 type="range"
                 min={limits?.min || 0}
                 max={limits?.max || 10}
-                value={buyInputs.mortgageInterestRateAnnual}
+                value={buyInputs.autoLoanInterestRateAnnual}
                 step="0.25"
                 className="custom-range"
-                onChange={(e) => handleInputChange("mortgageInterestRateAnnual", Number(e.target.value))}
+                onChange={(e) => handleInputChange("autoLoanInterestRateAnnual", Number(e.target.value))}
               />
               <div className="flex justify-between text-xs text-dark-400 mt-1">
                 <span>{limits?.minLabel || "0%"}</span>
@@ -200,12 +200,12 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
       {/* Mortgage Term */}
       <div>
         <div className="flex justify-between mb-3">
-          <label className="text-sm font-medium text-dark-700">{t("inputs.buy.mortgageTerm")}</label>
+          <label className="text-sm font-medium text-dark-700">{t("inputs.buy.autoLoanTerm")}</label>
         </div>
         <ButtonGroup
           options={MORTGAGE_TERMS.map((term) => ({ value: term, label: `${term} ${t("inputs.buy.years")}` }))}
-          value={buyInputs.mortgageTermYears}
-          onChange={(value) => handleInputChange("mortgageTermYears", value)}
+          value={buyInputs.autoLoanTermYears}
+          onChange={(value) => handleInputChange("autoLoanTermYears", value)}
           className="grid grid-cols-3 gap-2"
         />
       </div>
@@ -213,15 +213,15 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
       {/* Expected Annual Home Appreciation */}
       <div>
         <div className="flex justify-between items-center mb-3">
-          <label className="text-sm font-medium text-dark-700">{t("inputs.buy.homeAppreciation")}</label>
+          <label className="text-sm font-medium text-dark-700">{t("inputs.buy.carDepreciation")}</label>
           <div className="flex items-center space-x-2">
             <input
               type="number"
-              value={getDisplayValue("homeAppreciationCagr")}
+              value={getDisplayValue("carDepreciationRate")}
               onChange={(e) => {
-                handleNumberInputChange("homeAppreciationCagr", e.target.value, (val) => Number(val));
+                handleNumberInputChange("carDepreciationRate", e.target.value, (val) => Number(val));
               }}
-              onBlur={() => handleNumberInputBlur("homeAppreciationCagr", (val) => Number(val))}
+              onBlur={() => handleNumberInputBlur("carDepreciationRate", (val) => Number(val))}
               className="w-16 px-2 py-1 text-sm font-semibold text-primary-700 bg-primary-100 border border-primary-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               min="0"
               step="0.5"
@@ -230,17 +230,17 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
           </div>
         </div>
         {(() => {
-          const limits = getSliderLimits("homeAppreciationCagr", buyInputs.homeAppreciationCagr);
+          const limits = getSliderLimits("carDepreciationRate", buyInputs.carDepreciationRate);
           return (
             <>
               <input
                 type="range"
                 min={limits?.min || 0}
                 max={limits?.max || 10}
-                value={buyInputs.homeAppreciationCagr}
+                value={buyInputs.carDepreciationRate}
                 step="0.5"
                 className="custom-range"
-                onChange={(e) => handleInputChange("homeAppreciationCagr", Number(e.target.value))}
+                onChange={(e) => handleInputChange("carDepreciationRate", Number(e.target.value))}
               />
               <div className="flex justify-between text-xs text-dark-400 mt-1">
                 <span>{limits?.minLabel || "0%"}</span>
@@ -270,22 +270,22 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
             {/* Closing Costs */}
             <div className="flex justify-between items-center">
               <label className="text-xs font-medium text-dark-600 flex items-center">
-                {t("inputs.buy.closingCosts")}
+                {t("inputs.buy.dealerFees")}
                 <div className="relative group ml-1">
                   <i className="fas fa-info-circle text-primary-400 text-xs"></i>
                   <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 w-52 p-2 bg-dark-700 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-                    As a % of property price (e.g., loan origination, title, and other closing costs).
+                    As a % of vehicle price (e.g., documentation, destination, and other dealer fees).
                   </div>
                 </div>
               </label>
               <div className="flex space-x-2 items-center">
                 <input
                   type="number"
-                  value={getDisplayValue("closingCostsPercentageBuy")}
+                  value={getDisplayValue("dealerFeesPercentage")}
                   onChange={(e) =>
-                    handleNumberInputChange("closingCostsPercentageBuy", e.target.value, (val) => Number(val))
+                    handleNumberInputChange("dealerFeesPercentage", e.target.value, (val) => Number(val))
                   }
-                  onBlur={() => handleNumberInputBlur("closingCostsPercentageBuy", (val) => Number(val))}
+                  onBlur={() => handleNumberInputBlur("dealerFeesPercentage", (val) => Number(val))}
                   className="w-14 p-1 text-xs text-center border rounded-lg"
                   min="0"
                   max="100"
@@ -301,18 +301,18 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
                 <div className="relative group ml-1">
                   <i className="fas fa-info-circle text-primary-400 text-xs"></i>
                   <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 w-52 p-2 bg-dark-700 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-                    As a % of future sale price (e.g., agent commissions).
+                    As a % of future sale price (e.g., reconditioning, advertising).
                   </div>
                 </div>
               </label>
               <div className="flex space-x-2 items-center">
                 <input
                   type="number"
-                  value={getDisplayValue("sellingCostsPercentageSell")}
+                  value={getDisplayValue("sellingCostsPercentage")}
                   onChange={(e) =>
-                    handleNumberInputChange("sellingCostsPercentageSell", e.target.value, (val) => Number(val))
+                    handleNumberInputChange("sellingCostsPercentage", e.target.value, (val) => Number(val))
                   }
-                  onBlur={() => handleNumberInputBlur("sellingCostsPercentageSell", (val) => Number(val))}
+                  onBlur={() => handleNumberInputBlur("sellingCostsPercentage", (val) => Number(val))}
                   className="w-14 p-1 text-xs text-center border rounded-lg"
                   min="0"
                   max="100"
@@ -327,23 +327,23 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
             {/* Property Tax Rate */}
             <div className="flex justify-between items-center">
               <label className="text-xs font-medium text-dark-600 flex items-center">
-                {t("inputs.buy.propertyTax")}
+                {t("inputs.buy.insuranceRegistration")}
                 <div className="relative group ml-1">
                   <i className="fas fa-info-circle text-primary-400 text-xs"></i>
                   <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 w-52 p-2 bg-dark-700 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-                    As a % of the property's assessed value each year.
+                    As a % of the vehicle's value each year.
                   </div>
                 </div>
               </label>
               <div className="flex space-x-2 items-center">
                 <input
                   type="number"
-                  value={getDisplayValue("propertyTaxRateAnnual")}
+                  value={getDisplayValue("insuranceAndRegistrationRateAnnual")}
                   step="0.1"
                   onChange={(e) =>
-                    handleNumberInputChange("propertyTaxRateAnnual", e.target.value, (val) => Number(val))
+                    handleNumberInputChange("insuranceAndRegistrationRateAnnual", e.target.value, (val) => Number(val))
                   }
-                  onBlur={() => handleNumberInputBlur("propertyTaxRateAnnual", (val) => Number(val))}
+                  onBlur={() => handleNumberInputBlur("insuranceAndRegistrationRateAnnual", (val) => Number(val))}
                   className="w-14 p-1 text-xs text-center border rounded-lg"
                   min="0"
                   max="100"
@@ -355,23 +355,23 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
             {/* Insurance & Maintenance */}
             <div className="flex justify-between items-center">
               <label className="text-xs font-medium text-dark-600 flex items-center">
-                {t("inputs.buy.insuranceMaintenance")}
+                {t("inputs.buy.maintenanceFuel")}
                 <div className="relative group ml-1">
                   <i className="fas fa-info-circle text-primary-400 text-xs"></i>
                   <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 w-52 p-2 bg-dark-700 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-                    Combined estimate as a % of the property's value each year.
+                    Combined estimate as a % of the vehicle's value each year.
                   </div>
                 </div>
               </label>
               <div className="flex space-x-2 items-center">
                 <input
                   type="number"
-                  value={getDisplayValue("insuranceAndMaintenanceRateAnnual")}
+                  value={getDisplayValue("maintenanceAndFuelRateAnnual")}
                   step="0.1"
                   onChange={(e) =>
-                    handleNumberInputChange("insuranceAndMaintenanceRateAnnual", e.target.value, (val) => Number(val))
+                    handleNumberInputChange("maintenanceAndFuelRateAnnual", e.target.value, (val) => Number(val))
                   }
-                  onBlur={() => handleNumberInputBlur("insuranceAndMaintenanceRateAnnual", (val) => Number(val))}
+                  onBlur={() => handleNumberInputBlur("maintenanceAndFuelRateAnnual", (val) => Number(val))}
                   className="w-14 p-1 text-xs text-center border rounded-lg"
                   min="0"
                   max="100"
@@ -382,19 +382,19 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
 
             {/* HOA Fee */}
             <div className="flex justify-between items-center">
-              <label className="text-xs font-medium text-dark-600">{t("inputs.buy.hoaFee")}</label>
+              <label className="text-xs font-medium text-dark-600">{t("inputs.buy.registrationAndFuel")}</label>
               <div className="flex space-x-2 items-center">
                 <span className="text-xs text-dark-500">$</span>
                 <input
                   type="text"
-                  value={formatDisplayValue("hoaFeeAnnual", ["propertyPrice", "hoaFeeAnnual"])}
+                  value={formatDisplayValue("registrationAndFuelAnnual", ["carPrice", "registrationAndFuelAnnual"])}
                   onChange={(e) => {
                     const rawValue = e.target.value.replace(/,/g, "");
                     if (rawValue === "" || (!isNaN(Number(rawValue)) && Number(rawValue) >= 0)) {
-                      handleNumberInputChange("hoaFeeAnnual", rawValue, (val) => parseFormattedNumber(val));
+                      handleNumberInputChange("registrationAndFuelAnnual", rawValue, (val) => parseFormattedNumber(val));
                     }
                   }}
-                  onBlur={() => handleNumberInputBlur("hoaFeeAnnual", (val) => parseFormattedNumber(val))}
+                  onBlur={() => handleNumberInputBlur("registrationAndFuelAnnual", (val) => parseFormattedNumber(val))}
                   className="w-14 p-1 text-xs text-center border rounded-lg"
                   placeholder="5,000"
                 />
@@ -411,7 +411,7 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
                 <div className="relative group ml-1">
                   <i className="fas fa-info-circle text-primary-400 text-xs"></i>
                   <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 w-60 p-2 bg-dark-700 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-                    Your combined federal and state rate. Used to estimate mortgage interest deduction benefits.
+                    Your combined federal and state rate. Used to estimate auto loan interest deduction benefits.
                   </div>
                 </div>
               </label>
@@ -432,11 +432,11 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
             {/* Mortgage Interest Deduction Toggle */}
             <div className="flex justify-between items-center">
               <label className="text-xs font-medium text-dark-600 flex items-center">
-                {t("inputs.buy.mortgageDeduction")}
+                {t("inputs.buy.autoLoanDeduction")}
                 <div className="relative group ml-1">
                   <i className="fas fa-info-circle text-primary-400 text-xs"></i>
                   <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 w-60 p-2 bg-dark-700 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-                    If you itemize deductions on your tax return, you can deduct the interest paid on your mortgage.
+                    If you itemize deductions on your tax return, you can deduct the interest paid on your auto loan.
                   </div>
                 </div>
               </label>
@@ -445,18 +445,18 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
                   <div className="relative">
                     <input
                       type="checkbox"
-                      checked={buyInputs.mortgageInterestDeduction}
-                      onChange={(e) => handleInputChange("mortgageInterestDeduction", e.target.checked)}
+                      checked={buyInputs.autoLoanInterestDeduction}
+                      onChange={(e) => handleInputChange("autoLoanInterestDeduction", e.target.checked)}
                       className="sr-only"
                     />
                     <div
                       className={`block w-8 h-4 rounded-full transition-colors ${
-                        buyInputs.mortgageInterestDeduction ? "bg-primary-300" : "bg-gray-200"
+                        buyInputs.autoLoanInterestDeduction ? "bg-primary-300" : "bg-gray-200"
                       }`}
                     ></div>
                     <div
                       className={`dot absolute left-0.5 top-0.5 bg-white w-3 h-3 rounded-full transition-transform ${
-                        buyInputs.mortgageInterestDeduction ? "translate-x-4 bg-primary-500" : ""
+                        buyInputs.autoLoanInterestDeduction ? "translate-x-4 bg-primary-500" : ""
                       }`}
                     ></div>
                   </div>
@@ -472,9 +472,7 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
                   <div className="relative group ml-1">
                     <i className="fas fa-info-circle text-primary-400 text-xs"></i>
                     <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 w-96 p-3 bg-dark-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10 max-h-96 overflow-y-auto">
-                      <p className="mb-2">
-                        Tax rate on profits when property is sold. Based on your income and filing status:
-                      </p>
+                      <p className="mb-2">Tax rate on profits when vehicle is sold. Based on your income and filing status:</p>
                       <table className="w-full text-xs border-collapse">
                         <thead className="bg-dark-700">
                           <tr>
@@ -538,8 +536,8 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
                   value: rate,
                   label: `${rate}%`,
                 }))}
-                value={buyInputs.longTermCapitalGainsTaxRateProperty}
-                onChange={(value) => handleInputChange("longTermCapitalGainsTaxRateProperty", value)}
+                value={buyInputs.longTermCapitalGainsTaxRateVehicle}
+                onChange={(value) => handleInputChange("longTermCapitalGainsTaxRateVehicle", value)}
                 className="grid grid-cols-4 gap-2"
                 buttonClassName="px-2 py-1 rounded-lg text-xs font-medium transition-colors"
                 activeClassName="bg-primary-500 text-white"
@@ -555,7 +553,7 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
                   <div className="relative group ml-1">
                     <i className="fas fa-info-circle text-primary-400 text-xs"></i>
                     <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 w-60 p-2 bg-dark-700 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-                      Tax-free capital gains amount for single filers: $250,000. For married filing jointly: $500,000.
+                      Tax-free capital gains amount for single filers: $250,000. For married filing jointly: $500,000. (Applies to primary residence, not typically vehicles).
                     </div>
                   </div>
                 </label>
@@ -583,7 +581,7 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
       {onSwitchToRent && (
         <div className="pt-4 border-t border-gray-100">
           <button
-            onClick={onSwitchToRent}
+            onClick={onSwitchToRent} // eslint-disable-line @typescript-eslint/no-unsafe-assignment
             className="w-full py-2.5 px-4 text-secondary-600 font-medium rounded-lg border border-secondary-200 bg-secondary-50 hover:bg-secondary-100 transition duration-200 flex items-center justify-center"
           >
             <i className="fas fa-exchange-alt mr-2"></i>

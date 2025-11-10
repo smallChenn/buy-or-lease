@@ -79,7 +79,7 @@ export default function RentInputs({ onSwitchToBuy }: RentInputsProps) {
   const handleSameAsAppreciationChange = (checked: boolean) => {
     handleInputChange("sameAsHomeAppreciation", checked);
     if (checked) {
-      handleInputChange("rentGrowthRateAnnual", buyInputs.homeAppreciationCagr);
+      handleInputChange("rentGrowthRateAnnual", buyInputs.carDepreciationRate);
     }
   };
 
@@ -173,7 +173,7 @@ export default function RentInputs({ onSwitchToBuy }: RentInputsProps) {
             className="mr-2"
           />
           <label htmlFor="sameAsAppreciationRate" className="text-xs text-dark-500">
-{t('inputs.rent.sameAsAppreciation')}
+            {t("inputs.rent.sameAsDepreciation")}
           </label>
         </div>
       </div>
