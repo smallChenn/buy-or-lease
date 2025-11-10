@@ -15,7 +15,7 @@ export default function RentInputs({ onSwitchToBuy }: RentInputsProps) {
   const { rentInputs, buyInputs } = state;
 
   const validationConfig: InputValidationConfig<RentInputsType> = {
-    currentMonthlyRentAmount: VALIDATION_LIMITS.MONTHLY_RENT,
+    currentMonthlyRentAmount: VALIDATION_LIMITS.MONTHLY_LEASE,
     rentGrowthRateAnnual: VALIDATION_LIMITS.POSITIVE_NUMBER,
     customInvestmentReturn: VALIDATION_LIMITS.POSITIVE_NUMBER,
     longTermCapitalGainsTaxRateInvestment: VALIDATION_LIMITS.POSITIVE_NUMBER,
@@ -41,23 +41,23 @@ export default function RentInputs({ onSwitchToBuy }: RentInputsProps) {
 
     switch (field) {
       case "currentMonthlyRentAmount": {
-        const min = Math.min(SLIDER_LIMITS.MONTHLY_RENT.MIN, currentNum);
-        const max = Math.max(SLIDER_LIMITS.MONTHLY_RENT.MAX, currentNum);
+        const min = Math.min(SLIDER_LIMITS.MONTHLY_LEASE.MIN, currentNum);
+        const max = Math.max(SLIDER_LIMITS.MONTHLY_LEASE.MAX, currentNum);
         return {
           min,
           max,
-          step: SLIDER_LIMITS.MONTHLY_RENT.STEP,
+          step: SLIDER_LIMITS.MONTHLY_LEASE.STEP,
           minLabel: min < 1000 ? `$${min}` : `$${Math.round(min / 1000)}K`,
           maxLabel: max < 1000 ? `$${max}` : `$${Math.round(max / 1000)}K`,
         };
       }
       case "rentGrowthRateAnnual": {
-        const min = Math.min(SLIDER_LIMITS.RENT_GROWTH.MIN, currentNum);
-        const max = Math.max(SLIDER_LIMITS.RENT_GROWTH.MAX, currentNum);
+        const min = Math.min(SLIDER_LIMITS.LEASE_GROWTH.MIN, currentNum);
+        const max = Math.max(SLIDER_LIMITS.LEASE_GROWTH.MAX, currentNum);
         return {
           min,
           max,
-          step: SLIDER_LIMITS.RENT_GROWTH.STEP,
+          step: SLIDER_LIMITS.LEASE_GROWTH.STEP,
           minLabel: `${min}%`,
           maxLabel: `${max}%`,
         };
@@ -110,9 +110,9 @@ export default function RentInputs({ onSwitchToBuy }: RentInputsProps) {
             <SliderInput
               value={rentInputs.currentMonthlyRentAmount}
               onChange={(value) => handleInputChange("currentMonthlyRentAmount", value)}
-              min={limits?.min || SLIDER_LIMITS.MONTHLY_RENT.MIN}
-              max={limits?.max || SLIDER_LIMITS.MONTHLY_RENT.MAX}
-              step={limits?.step || SLIDER_LIMITS.MONTHLY_RENT.STEP}
+              min={limits?.min || SLIDER_LIMITS.MONTHLY_LEASE.MIN}
+              max={limits?.max || SLIDER_LIMITS.MONTHLY_LEASE.MAX}
+              step={limits?.step || SLIDER_LIMITS.MONTHLY_LEASE.STEP}
               minLabel={limits?.minLabel || "$1K"}
               maxLabel={limits?.maxLabel || "$10K"}
               className="custom-range-secondary"

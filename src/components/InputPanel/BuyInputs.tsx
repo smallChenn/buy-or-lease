@@ -7,7 +7,7 @@ import {
   parseFormattedNumber,
   type InputValidationConfig,
 } from "../../lib/inputUtils";
-import { SLIDER_LIMITS, MORTGAGE_TERMS, TAX_RATES, VALIDATION_LIMITS } from "../../lib/constants";
+import { SLIDER_LIMITS, LOAN_TERMS, TAX_RATES, VALIDATION_LIMITS } from "../../lib/constants";
 import { SliderInput, ButtonGroup } from "./shared";
 import CalculationStatus from "./CalculationStatus";
 
@@ -22,8 +22,8 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
   const [showAdvanced, setShowAdvanced] = useState(false);
 
   const validationConfig: InputValidationConfig<BuyInputsType> = {
-    carPrice: VALIDATION_LIMITS.PROPERTY_PRICE,
-    registrationAndFuelAnnual: VALIDATION_LIMITS.HOA_FEE,
+    carPrice: VALIDATION_LIMITS.VEHICLE_PRICE,
+    registrationAndFuelAnnual: VALIDATION_LIMITS.FUEL_COSTS,
     downPaymentPercentage: VALIDATION_LIMITS.PERCENTAGE,
     dealerFeesPercentage: VALIDATION_LIMITS.PERCENTAGE,
     sellingCostsPercentage: VALIDATION_LIMITS.PERCENTAGE,
@@ -48,34 +48,34 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
 
     switch (field) {
       case "carPrice": {
-        const min = Math.min(SLIDER_LIMITS.PROPERTY_PRICE.MIN, currentNum);
-        const max = Math.max(SLIDER_LIMITS.PROPERTY_PRICE.MAX, currentNum);
+        const min = Math.min(SLIDER_LIMITS.VEHICLE_PRICE.MIN, currentNum);
+        const max = Math.max(SLIDER_LIMITS.VEHICLE_PRICE.MAX, currentNum);
         return {
           min,
           max,
-          step: SLIDER_LIMITS.PROPERTY_PRICE.STEP,
+          step: SLIDER_LIMITS.VEHICLE_PRICE.STEP,
           minLabel: min < 1000000 ? `$${Math.round(min / 1000)}K` : `$${(min / 1000000).toFixed(1)}M`,
           maxLabel: max < 1000000 ? `$${Math.round(max / 1000)}K` : `$${(max / 1000000).toFixed(1)}M`,
         };
       }
       case "autoLoanInterestRateAnnual": {
-        const min = Math.min(SLIDER_LIMITS.MORTGAGE_INTEREST_RATE.MIN, currentNum);
-        const max = Math.max(SLIDER_LIMITS.MORTGAGE_INTEREST_RATE.MAX, currentNum);
+        const min = Math.min(SLIDER_LIMITS.AUTO_LOAN_INTEREST_RATE.MIN, currentNum);
+        const max = Math.max(SLIDER_LIMITS.AUTO_LOAN_INTEREST_RATE.MAX, currentNum);
         return {
           min,
           max,
-          step: SLIDER_LIMITS.MORTGAGE_INTEREST_RATE.STEP,
+          step: SLIDER_LIMITS.AUTO_LOAN_INTEREST_RATE.STEP,
           minLabel: `${min}%`,
           maxLabel: `${max}%`,
         };
       }
       case "carDepreciationRate": {
-        const min = Math.min(SLIDER_LIMITS.HOME_APPRECIATION.MIN, currentNum);
-        const max = Math.max(SLIDER_LIMITS.HOME_APPRECIATION.MAX, currentNum);
+          const min = Math.min(SLIDER_LIMITS.VEHICLE_DEPRECIATION.MIN, currentNum);
+          const max = Math.max(SLIDER_LIMITS.VEHICLE_DEPRECIATION.MAX, currentNum);
         return {
           min,
           max,
-          step: SLIDER_LIMITS.HOME_APPRECIATION.STEP,
+            step: SLIDER_LIMITS.VEHICLE_DEPRECIATION.STEP,
           minLabel: `${min}%`,
           maxLabel: `${max}%`,
         };
@@ -116,9 +116,9 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
             <SliderInput
               value={buyInputs.carPrice}
               onChange={(value) => handleInputChange("carPrice", value)}
-              min={limits?.min || SLIDER_LIMITS.PROPERTY_PRICE.MIN}
-              max={limits?.max || SLIDER_LIMITS.PROPERTY_PRICE.MAX}
-              step={limits?.step || SLIDER_LIMITS.PROPERTY_PRICE.STEP}
+              min={limits?.min || SLIDER_LIMITS.VEHICLE_PRICE.MIN}
+              max={limits?.max || SLIDER_LIMITS.VEHICLE_PRICE.MAX}
+              step={limits?.step || SLIDER_LIMITS.VEHICLE_PRICE.STEP}
               minLabel={limits?.minLabel || "$100K"}
               maxLabel={limits?.maxLabel || "$10M"}
             />
@@ -203,7 +203,7 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
           <label className="text-sm font-medium text-dark-700">{t("inputs.buy.autoLoanTerm")}</label>
         </div>
         <ButtonGroup
-          options={MORTGAGE_TERMS.map((term) => ({ value: term, label: `${term} ${t("inputs.buy.years")}` }))}
+            options={LOAN_TERMS.map((term) => ({ value: term, label: `${term} ${t("inputs.buy.years")}` }))}
           value={buyInputs.autoLoanTermYears}
           onChange={(value) => handleInputChange("autoLoanTermYears", value)}
           className="grid grid-cols-3 gap-2"

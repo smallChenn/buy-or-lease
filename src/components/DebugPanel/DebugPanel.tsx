@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { createElement, useState } from 'react';
 import { useApp } from '../../contexts';
 import { useCalculations } from '../../hooks';
 import { formatCurrency } from '../../lib/inputUtils';
 
-export default function DebugPanel() {
+const DebugPanel = () => {
   const { state } = useApp();
   const { results, getNetWorthComparison, getBreakEvenYear } = useCalculations();
   const [selectedYear, setSelectedYear] = useState(() => Math.min(20, results.projectionYears));
@@ -11,8 +11,8 @@ export default function DebugPanel() {
     inputState: true // Expand input verification by default
   });
 
-  const toggleSection = (section: string) => {
-    setExpandedSections(prev => ({
+  const toggleSection = (section: string): void => {
+    setExpandedSections((prev: Record<string, boolean>) => ({
       ...prev,
       [section]: !prev[section]
     }));
@@ -32,7 +32,7 @@ export default function DebugPanel() {
           <label className="text-sm text-gray-600">Selected Year:</label>
           <select
             value={selectedYear}
-            onChange={(e) => setSelectedYear(Number(e.target.value))}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedYear(Number(e.target.value))}
             className="border rounded px-2 py-1 text-sm"
           >
             {Array.from({ length: results.projectionYears }, (_, i) => i + 1).map(year => (
@@ -63,7 +63,7 @@ export default function DebugPanel() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-1 text-xs">
                 <div className="flex justify-between">
                   <span>Vehicle Price:</span>
-                  <span className="font-medium">{formatCurrency(state.buyInputs.vehiclePrice)}</span>
+                  <span className="font-medium">{formatCurrency(state.buyInputs.carPrice)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Down Payment:</span>
@@ -75,19 +75,19 @@ export default function DebugPanel() {
                 </div>
                 <div className="flex justify-between">
                   <span>Auto Loan Term:</span>
-                  <span className="font-medium">{state.buyInputs.loanTermYears} years</span>
+                  <span className="font-medium">{state.buyInputs.autoLoanTermYears} years</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Vehicle Depreciation:</span>
-                  <span className="font-medium">{state.buyInputs.vehicleDepreciationRate}% annually</span>
+                  <span className="font-medium">{state.buyInputs.carDepreciationRate}% annually</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Dealer Fees:</span>
-                  <span className="font-medium">{state.buyInputs.dealerFeesPercentageBuy}% ({formatCurrency(results.preliminary.autoLoan.dealerFeesAmount)})</span>
+                  <span className="font-medium">{state.buyInputs.dealerFeesPercentage}% ({formatCurrency(results.preliminary.autoLoan.dealerFeesAmount)})</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Selling Costs:</span>
-                  <span className="font-medium">{state.buyInputs.sellingCostsPercentageSell}%</span>
+                  <span className="font-medium">{state.buyInputs.sellingCostsPercentage}%</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Insurance & Registration:</span>
@@ -95,11 +95,11 @@ export default function DebugPanel() {
                 </div>
                 <div className="flex justify-between">
                   <span>Maintenance:</span>
-                  <span className="font-medium">{state.buyInputs.maintenanceRateAnnual}% annually</span>
+                  <span className="font-medium">{state.buyInputs.maintenanceAndFuelRateAnnual}% annually</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Fuel Costs (Annual):</span>
-                  <span className="font-medium">{formatCurrency(state.buyInputs.fuelCostsAnnual)} annually</span>
+                  <span className="font-medium">{formatCurrency(state.buyInputs.registrationAndFuelAnnual)} annually</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Marginal Tax Rate:</span>
@@ -133,11 +133,11 @@ export default function DebugPanel() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-1 text-xs">
                   <div className="flex justify-between">
                     <span>Monthly Lease:</span>
-                    <span className="font-medium">{formatCurrency(state.rentInputs.currentMonthlyLeaseAmount)}</span>
+                    <span className="font-medium">{formatCurrency(state.rentInputs.currentMonthlyRentAmount)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Lease Growth:</span>
-                    <span className="font-medium">{state.rentInputs.leaseGrowthRateAnnual}% annually</span>
+                    <span className="font-medium">{state.rentInputs.rentGrowthRateAnnual}% annually</span>
                   </div>
                 <div className="flex justify-between">
                   <span>Investment Option:</span>
