@@ -4,8 +4,8 @@
       "prefix": "Should I ",
       "buy": "Buy",
       "middle": " or ",
-      "rent": "Rent",
-      "suffix": " a House?"
+      "rent": "Lease",
+      "suffix": " a Car?"
     },
     "description": "Instantly see which option leaves you richer in the future.",
     "language": {
@@ -18,7 +18,7 @@
   "hero": {
     "conclusion": {
       "buying": "Buying",
-      "renting": "Renting",
+      "renting": "Leasing",
       "winsByLabel": "wins by",
       "overLabel": "in",
       "yearsLabel": "years"
@@ -26,39 +26,39 @@
     "timeHorizon": {
       "label": "View projection for:",
       "options": {
-        "10": "10 years",
-        "15": "15 years",
-        "20": "20 years",
-        "30": "30 years"
+        "3": "3 years",
+        "5": "5 years",
+        "7": "7 years",
+        "10": "10 years"
       }
     },
     "explanation": {
       "buyPrefix": "If you buy a",
-      "buyMiddle": "home today (with",
-      "buyDownPayment": "down payment) and it grows to",
+      "buyMiddle": "car today (with",
+      "buyDownPayment": "down payment) and it depreciates to",
       "buyMiddle2": "in",
       "buySuffix": "years, your net worth would be",
-      "rentPrefix": "If you rent for",
+      "rentPrefix": "If you lease for",
       "rentSuffix": "/month and invest the difference, your net worth would be"
     },
     "assumptions": {
       "title": "Key Assumptions",
-      "homeValue": "Home value:",
-      "currentRent": "Current rent:",
+      "homeValue": "Car value:",
+      "currentRent": "Current lease:",
       "downPayment": "Down payment:",
       "investmentReturns": "Investment returns:",
-      "homeAppreciation": "Home appreciation:",
-      "rentIncrease": "Rent increase:"
+      "homeAppreciation": "Vehicle depreciation:",
+      "rentIncrease": "Lease increase:"
     },
     "netWorth": {
-      "buyTitle": "Buy a Home",
-      "rentTitle": "Rent + Invest",
+      "buyTitle": "Buy a Car",
+      "rentTitle": "Lease + Invest",
       "netWorthIn": "Net Worth in",
       "years": "Years",
       "buyExplanation": {
         "youOwn": "You own a",
-        "homeAndOwe": "home and owe",
-        "onMortgage": "on your mortgage",
+        "homeAndOwe": "car and owe",
+        "onMortgage": "on your auto loan",
         "alsoInvested": "You have also invested",
         "nowWorth": "and now it's worth"
       },
@@ -76,7 +76,7 @@
       "buttonPrompt": "How is this calculated?",
       "title": "How Is This Calculated?",
       "closeButton": "Got it",
-      "intro": "Our calculator uses a \"same money in, see who ends up richer\" approach to ensure a fair comparison between buying and renting.",
+      "intro": "Our calculator uses a \"same money in, see who ends up richer\" approach to ensure a fair comparison between buying and leasing.",
       "corePrinciple": {
         "title": "Core Principle",
         "description": "Both scenarios assume the same total cash outflow. When one option costs less in a given year, the savings are automatically invested. This captures the true opportunity cost of each decision."
@@ -86,8 +86,8 @@
         "step1": {
           "title": "Track All Cash Outflows",
           "description": "We calculate every dollar you spend in both scenarios:",
-          "buyItems": "Buy: Down payment, closing costs, mortgage payments (principal + interest), property taxes, insurance, maintenance, HOA fees",
-          "rentItems": "Rent: Monthly rent payments"
+          "buyItems": "Buy: Down payment, dealer fees, auto loan payments (principal + interest), insurance, maintenance, registration, fuel costs",
+          "rentItems": "Lease: Monthly lease payments"
         },
         "step2": {
           "title": "Invest the Difference",
@@ -95,33 +95,33 @@
         },
         "step3": {
           "title": "Calculate Final Net Worth",
-          "description": "At the end of your chosen time horizon, we calculate your net worth for each scenario: property value minus mortgage balance (plus any investments) for buying, and investment portfolio value for renting. Both values account for applicable taxes."
+          "description": "At the end of your chosen time horizon, we calculate your net worth for each scenario: vehicle value minus auto loan balance (plus any investments) for buying, and investment portfolio value for leasing. Both values account for applicable taxes."
         }
       },
       "example": {
         "title": "Quick Example",
         "year1": {
           "label": "Year 1:",
-          "buy": "Buy: $100k down payment + $10k closing + $30k mortgage + $10k holding = $150k",
-          "rent": "Rent: $24k annual rent = $24k",
-          "result": "→ Rent scenario invests the $126k difference"
+          "buy": "Buy: $20k down payment + $2k dealer fees + $12k auto loan + $3k insurance = $37k",
+          "rent": "Lease: $6k annual lease = $6k",
+          "result": "→ Lease scenario invests the $31k difference"
         },
         "laterYears": {
           "label": "Later Years:",
-          "description": "If buying costs $40k/year but renting costs $30k/year, the rent scenario invests that $10k difference each year. If renting ever costs more, then buying gets to invest the difference instead."
+          "description": "If buying costs $8k/year but leasing costs $6k/year, the lease scenario invests that $2k difference each year. If leasing ever costs more, then buying gets to invest the difference instead."
         }
       },
       "whatsIncluded": {
         "title": "What's Included in the Calculation?",
         "description": "All costs flow through to the final comparison via the differential investment mechanism:",
         "items": {
-          "mortgagePayments": "Mortgage payments (principal + interest)",
-          "propertyTaxes": "Property taxes",
+          "mortgagePayments": "Auto loan payments (principal + interest)",
+          "propertyTaxes": "Insurance & registration",
           "insurance": "Insurance & maintenance",
-          "maintenance": "HOA fees and other holding costs",
-          "closingCosts": "Closing costs and selling costs",
-          "taxBenefits": "Tax benefits (mortgage interest deduction)",
-          "capitalGains": "Capital gains taxes (property & investments)",
+          "maintenance": "Maintenance, registration, and fuel costs",
+          "closingCosts": "Dealer fees and selling costs",
+          "taxBenefits": "Tax benefits (auto loan interest deduction, where applicable)",
+          "capitalGains": "Capital gains taxes (vehicle sales & investments)",
           "sellingCosts": "Transaction costs (buying & selling)"
         }
       },
@@ -133,40 +133,40 @@
   },
   "inputs": {
     "title": "Inputs",
-    "cityPresets": "City Presets",
-    "cityPresetsDescription": "City presets use historical medians from the last 10 years. Default price is the 2025 median; CAGR is computed from 2015–2025 medians. Bay Area cities use CRMLS (Single Family Home; 3+ beds; 1+ bath). Other regions use Zillow/Redfin single-family medians for the same window. Does NOT predict future market conditions.",
+    "cityPresets": "Vehicle Presets",
+    "cityPresetsDescription": "Vehicle presets use historical market data. Default price is based on current market values; depreciation rates are estimated from historical data. Data is for reference only and does NOT predict future market conditions.",
     "tabs": {
       "buy": "Buy",
-      "rent": "Rent & Invest"
+      "rent": "Lease & Invest"
     },
     "buy": {
-      "homePrice": "Home Price",
+      "homePrice": "Car Price",
       "downPayment": "Down Payment",
-      "mortgageRate": "Mortgage Interest Rate",
-      "mortgageTerm": "Mortgage Term",
-      "homeAppreciation": "Expected Annual Home Appreciation",
+      "mortgageRate": "Auto Loan Interest Rate",
+      "mortgageTerm": "Loan Term",
+      "homeAppreciation": "Expected Annual Vehicle Depreciation",
       "advancedOptions": "Advanced Options",
       "transactionCosts": "Buying/Selling Transaction Costs",
-      "closingCosts": "Closing Costs (Current Buy)",
+      "closingCosts": "Dealer Fees (Current Buy)",
       "sellingCosts": "Selling Costs (Future Sale)",
       "holdingCosts": "Holding Costs (Annual)",
-      "propertyTax": "Property Tax Rate",
+      "propertyTax": "Insurance & Registration Rate",
       "insuranceMaintenance": "Insurance & Maintenance",
-      "hoaFee": "HOA Fee",
+      "hoaFee": "Registration & Fuel Costs",
       "taxImplications": "Tax Implications",
       "marginalTaxRate": "Marginal Income Tax Rate",
-      "mortgageDeduction": "Claim Mortgage Interest Deduction",
+      "mortgageDeduction": "Claim Auto Loan Interest Deduction (where applicable)",
       "capitalGainsTax": "Capital Gains Tax Rate",
       "filingStatus": "Filing Status",
       "married": "Married",
       "single": "Single",
-      "switchToRent": "Switch to Rent & Invest",
+      "switchToRent": "Switch to Lease & Invest",
       "years": "Years"
     },
     "rent": {
-      "monthlyRent": "Monthly Rent",
-      "rentIncrease": "Expected Annual Rent Increase",
-      "sameAsAppreciation": "Same as home appreciation rate",
+      "monthlyRent": "Monthly Lease",
+      "rentIncrease": "Expected Annual Lease Increase",
+      "sameAsAppreciation": "Same as vehicle depreciation rate",
       "investmentReturn": "Annual Investment Return",
       "capitalGainsTax": "Capital Gains Tax Rate",
       "switchToBuy": "Switch to Buy"
@@ -189,8 +189,8 @@
       "cashOut": "Cash Out",
       "years": "Years",
       "netWorthLabel": "Net Worth",
-      "buySeriesName": "Buy a Home",
-      "rentSeriesName": "Rent + Invest"
+      "buySeriesName": "Buy a Car",
+      "rentSeriesName": "Lease + Invest"
     },
     "cashFlow": {
       "title": "Cash Outflow Comparison",
@@ -204,10 +204,10 @@
       "annualOutflow": "Annual Cash Outflow",
       "cumulativeOutflow": "Cumulative Cash Outflow",
       "series": {
-        "homeCosts": "Home Ownership Costs",
+        "homeCosts": "Car Ownership Costs",
         "investmentBuy": "Investment (Buy)",
-        "rentCosts": "Rent Costs",
-        "investmentRent": "Investment (Rent)"
+        "rentCosts": "Lease Costs",
+        "investmentRent": "Investment (Lease)"
       },
       "explanationTitle": "How to read this chart:",
       "annualExplanation": "Each bar shows your yearly cash spending. When one option costs more, we treat the difference as extra investment in the other option. This ensures that the total cash spent in both options is the same.",
@@ -215,8 +215,8 @@
     }
   },
   "footer": {
-    "copyright": "© 2025 Buy vs. Rent Financial Calculator",
+    "copyright": "© 2025 Buy vs. Lease Car Calculator",
     "dataCreditsPrefix": "Special thanks to ",
-    "dataCreditsSuffix": " for Bay Area housing data support"
+    "dataCreditsSuffix": " for automotive market data support"
   }
 }
