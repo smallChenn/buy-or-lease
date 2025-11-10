@@ -4,7 +4,7 @@
 
 ## 1. Overview
 
-A lightweight web app that lets users compare long‑term net‑worth outcomes for **buying** a home versus **renting & investing the savings**. 100 % client‑side; no dedicated backend required for the MVP.
+A lightweight web app that lets users compare long‑term net‑worth outcomes for **buying** a car versus **leasing & investing the savings**. 100 % client‑side; no dedicated backend required for the MVP.
 
 ---
 

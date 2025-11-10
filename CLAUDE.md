@@ -2,7 +2,7 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
+## Project Overview_
 
 A production-ready buy vs lease calculator that helps users compare long-term net-worth outcomes between buying a car and leasing while investing the savings. The app is 100% client-side (no backend), deployed on GitHub Pages at [smallchenn.github.io/buy-or-lease](https://smallchenn.github.io/buy-or-lease).
 
@@ -10,7 +10,7 @@ A production-ready buy vs lease calculator that helps users compare long-term ne
 
 **The application is feature-complete and production-ready.** All major features are implemented:
 
-- ✅ **Complete UI/UX**: Full responsive design with all input panels, charts, and visualizations
+- ✅ **Complete UI/UX**: Fully responsive design with all input panels, charts, and visualizations
 - ✅ **Financial Engine**: Sophisticated calculations with auto loan amortization, tax optimization, and investment projections
 - ✅ **Internationalization**: Full English/Chinese support via i18next with browser language detection
 - ✅ **URL State Sync**: Shareable links with LZ-compressed state parameters
@@ -137,7 +137,7 @@ The core calculation logic is in `src/lib/finance/calculations.ts`. All function
 
 ### Calculation Reference
 
-An Excel version of the calculator is available at `reference/validate.xlsx` for manual validation of calculation logic (note: may need updates for car-specific calculations).
+An Excel version of the calculator is available at `reference/validate.xlsx` for manual validation of calculation logic (note: it may need updates for car-specific calculations).
 
 ## Important Implementation Details
 

@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="public/title3.png" alt="Buy vs Lease Car Calculator" width="400" />
+<img src="public/title.png" alt="Buy vs Lease Car Calculator" width="400" />
 <br><br>
 
 <p>
@@ -14,7 +14,7 @@
 
 <div align="center">
 
-**[► 🚗 Try it Now ◄](https://smallchenn.github.io/buy-or-lease)**
+**[► 🚗 Try the Live Demo ◄](https://smallchenn.github.io/buy-or-lease)**
 
 </div>
 
@@ -28,7 +28,7 @@
 </div>
 
 <div align="center">
-  Thank you for checking out buy-or-lease car calculator!<br>
+  Thanks for checking out the Buy-or-Lease Car Calculator!<br>
   If you find it useful or interesting, consider giving this repository a <strong>star</strong> ⭐. It helps others discover the project too.
 </div>
 
@@ -36,7 +36,7 @@
 
 <div id="english">
 
-<h2 align="center">🚗 <a href="https://smallchenn.github.io/buy-or-lease">Buy vs Lease Car Calculator</a></h2>
+<h2 align="center">🚗 <a href="https://smallchenn.github.io/buy-or-lease">Buy vs. Lease Car Calculator</a></h2>
 <p align="center"><i>Instantly see which option leaves you richer.</i></p>
 
 <img src="public/demo.png" alt="Screenshot" width="100%" />
@@ -47,7 +47,7 @@ Buying or leasing a car is one of the biggest financial decisions many people fa
 
 <p align="center"><strong><i>Should I buy or lease a car?</i></strong></p>
 
-This web app helps you answer that question by showing you exactly how choosing to buy versus lease could impact your net worth over 3 / 5 / 7 / 10 years. We're talking about differences that can reach tens of thousands of dollars.
+This web app helps you answer that question by showing you exactly how choosing to buy versus lease could impact your net worth over 3, 5, 7, or 10 years. We're talking about differences that can reach tens of thousands of dollars.
 
 ### 🎯 What It Does
 
@@ -65,7 +65,7 @@ The app considers everything from auto loan payments and insurance to investment
 ### 🖥️ How to Use
 
 **Step 1: Pick a preset or start fresh**
-Choose how far into the future you want to project (3, 5, 7, 10 years). And choose a vehicle preset to load the default numbers based on the car model's market data.
+Choose how far into the future you want to project (3, 5, 7, or 10 years). You can also choose a vehicle preset to load default numbers based on that car model's market data.
 
 **Step 2: Tweak Your "Buy" Scenario**
 
@@ -77,7 +77,7 @@ Choose how far into the future you want to project (3, 5, 7, 10 years). And choo
 
 **Step 3: Tweak Your "Lease" Scenario**
 
-- 🚗 **Lease details**: Current monthly lease payment and expected lease terms
+- 🚗 **Lease details**: Current monthly lease payment and expected annual increase
 - 📊 **Investment plan**: Choose from preset investment options (like S&P 500, NASDAQ 100) or set a custom expected return
 
 **Step 4: Review Your Results**
@@ -96,12 +96,12 @@ Same money in, see who ends up richer.
 
 1. Same cash out the door
    Each year we total what you spend under each path.
-2. Cheap-wins bonus goes to investing
+2. Cheaper option invests the difference
    Whenever one path costs less, the savings are poured into an investment bucket for that path. This ensures that the two options have the same actual spending.
 3. End-of-game tally
    After your chosen horizon we:
-   - sell the car (minus dealer fees),
-   - cash out the fund (minus capital-gains tax),
+   - sell the car (minus selling costs),
+   - cash out the investment fund (minus capital gains tax),
    - pay off any auto loan balance.
 
 The bigger pile wins.
@@ -109,7 +109,7 @@ The bigger pile wins.
 Quick example:
 
 - Year 1: buyer writes a big cheque (down-payment + dealer fees); lessee just pays the first year's lease payments. That gap turns into the lessee's seed investment.
-- Later years: buyer pays auto loan + insurance; lessee pays lease payments. If one year the lease is $2000 cheaper than owning, the lessee invests that $2000; if owning is cheaper, the buyer invests the difference instead.
+- Later years: buyer pays auto loan + insurance; lessee pays lease payments. If one year the lease is $2,000 cheaper than owning, the lessee invests that $2,000; if owning is cheaper, the buyer invests the difference instead.
 
 **Put simply: spend the same, invest the spare—then see who’s richer.**
 
@@ -117,7 +117,7 @@ Quick example:
 
 Our calculations include these features for accuracy:
 
-- ✅ **Auto loan amortization**: Full payment schedules with principal/interest breakdown
+- ✅ **Auto loan amortization**: Full payment schedules with principal and interest breakdown
 - ✅ **Tax optimization**: Auto loan interest deductions (where applicable) based on your tax bracket
 - ✅ **Compound growth**: Both vehicle depreciation and investment returns are calculated annually
 - ✅ **Real-world costs**: Transaction fees, maintenance, insurance, registration, and other ownership costs
@@ -133,8 +133,7 @@ This method captures the true opportunity cost of car ownership by accounting fo
 - Depreciation assumptions for vehicles and growth assumptions for investments
 
 All calculations are pure TypeScript functions (see [src/lib/finance/](src/lib/finance/)). No external APIs touch your data; everything runs in the browser.
-
-> If you are interested in the calculation logic, there is also an Excel version of this calculator under [reference/validate.xlsx](reference/validate.xlsx). Note: The Excel file may need updates for car-specific calculations. You can use it to calculate the results manually as well.
+> If you are interested in the calculation logic, there is also an Excel version of this calculator under [reference/validate.xlsx](reference/validate.xlsx). Note: The Excel file may need updates for car-specific calculations, but you can use it to validate the results manually.
 
 <br>
 
@@ -151,7 +150,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Prerequisites**
 
-- Node.js 18+
+- Node.js 20+
 - npm or yarn
 
 **Installation**
@@ -170,7 +169,7 @@ The app will be available at `http://localhost:5173`
 
 #### 🛠️ Tech Stack
 
-**Core Framework**: React 19, TypeScript, Vite
+**Core Framework**: React 18, TypeScript, Vite
 **UI & Styling**: Tailwind CSS, ApexCharts
 **State Management & Routing**: React Context, React Router v7, LZ-String
 **Internationalization**: i18next, react-i18next
@@ -202,7 +201,7 @@ The app will be available at `http://localhost:5173`
 
 - [ ] **Advanced Charts**: More detailed financial projections
 - [x] **Shareable Links**: Share the results with others
-- [x] **Vehicle Presets**: Refine the vehicle presets numbers and add more car models
+- [x] **Vehicle Presets**: Refine the vehicle preset numbers and add more car models
 - [ ] **PDF Export**: Generate detailed reports
 
 #### 🙏 Acknowledgments
@@ -211,7 +210,7 @@ The app will be available at `http://localhost:5173`
 
 <br />
 <div align="center">
-  <sub>Thank you for reading! If you find buy-or-lease car calculator useful, consider giving this repository a <strong>star</strong> ⭐.</sub>
+  <sub>Thank you for reading! If you find the Buy-or-Lease Car Calculator useful, consider giving this repository a <strong>star</strong> ⭐.</sub>
 </div>
 
 ---
@@ -219,7 +218,7 @@ The app will be available at `http://localhost:5173`
 <div id="中文">
 
 <h2 align="center">🚗 <a href="https://smallchenn.github.io/buy-or-lease">买车还是租车计算器</a></h2>
-<p align="center"><i>算清买车还是租车让你更富有</i></p>
+<p align="center"><i>算清买车还是租车，哪个让你更富有</i></p>
 
 <img src="public/demo.png" alt="应用截图" width="100%" />
 
@@ -229,7 +228,7 @@ The app will be available at `http://localhost:5173`
 
 <p align="center"><strong><i>我到底应该买车还是租车？</i></strong></p>
 
-这个 App 通过对比买车租车对你净资产的影响，帮助你回答这个问题。你会看到这个决定如何在 3 / 5 / 7 / 10 年后让你的净资产产生数万元的差异。
+这个 App 通过对比买车和租车对你净资产的影响，帮助你回答这个问题。你会看到这个决定如何在 3、5、7 或 10 年后让你的净资产产生数万元的差异。
 
 ### 🎯 功能特点
 
@@ -247,7 +246,7 @@ The app will be available at `http://localhost:5173`
 ### 🖥️ 使用方法
 
 **第 1 步：选择预设或从 0 开始**
-选择你想要预测的时间范围（3 年、5 年、7 年、10 年）。选择车辆预设来加载基于该车型市场数据的默认数据。
+选择你想要预测的时间范围（3、5、7 或 10 年）。选择车辆预设来加载基于该车型市场数据的默认数据。
 
 **第 2 步：调整你的"买车"方案**
 
@@ -259,7 +258,7 @@ The app will be available at `http://localhost:5173`
 
 **第 3 步：调整你的"租车"方案**
 
-- 🚗 **租车详情**：当前月租车费用和预期租车条款
+- 🚗 **租车详情**：当前月租车费用和预期年增长率
 - 📊 **投资计划**：从预设投资选项（如标普 500、纳斯达克 100）中选择或设置自定义预期回报
 
 **第 4 步：查看你的结果**
@@ -278,12 +277,12 @@ The app will be available at `http://localhost:5173`
 
 1. 同样的现金支出
    每年我们计算你在每个选项下的总支出。
-2. 便宜路径的奖金用于投资
+2. 便宜的选项投资差额
    当一个选项的支出更低时，节省的资金会被当做该选项的投资。以此保证两个选项的实际支出相等。
 3. 最终结算
    在你选择的时间范围结束后，我们：
    - 出售汽车（减去经销商费用）
-   - 套现投资（减去资本利得税）
+   - 卖出投资（减去资本利得税）
    - 偿还任何剩余汽车贷款余额
 
 最终净资产更多的一方获胜。
@@ -291,7 +290,7 @@ The app will be available at `http://localhost:5173`
 举个例子：
 
 - 第 1 年：买车需要支付首付、经销商费用和第一年的持有成本；租车需要支付第一年租车费用。两者的差额转化为租车方案的初始投资。
-- 后续年份：买车需要支付汽车贷款、保险和持有成本；租车需要持续支付租车费用。如果某个年份的租车费用比持有车辆便宜 2000 元，这 2000 元会被当做租车方案的投资；如果持有车辆更便宜，那这个差额会被当做买车方案的投资。
+- 后续年份：买车需要支付汽车贷款、保险和持有成本；租车需要持续支付租车费用。如果某个年份的租车费用比持有车辆便宜 2,000 元，这 2,000 元会被当做租车方案的投资；如果持有车辆更便宜，那这个差额会被当做买车方案的投资。
 
 **简单来说：同样的支出，投资剩余——然后看哪个选项最终拥有更多净资产。**
 
@@ -299,7 +298,7 @@ The app will be available at `http://localhost:5173`
 
 我们的计算包括这些特征：
 
-- ✅ **汽车贷款摊销**：完整的还款计划，包含本金/利息分解
+- ✅ **汽车贷款摊销**：完整的还款计划，包含本金和利息分解
 - ✅ **税收优化**：基于你的税收等级的汽车贷款利息扣除（如适用）
 - ✅ **复利计算**：车辆折旧和投资回报都按年计算
 - ✅ **现实成本**：交易费用、维护费、保险、注册费和其他拥有成本
@@ -316,7 +315,7 @@ The app will be available at `http://localhost:5173`
 
 **所有计算都是纯 TypeScript 函数（见[src/lib/finance/](src/lib/finance/)）。没有外部 API 接触你的数据；一切都在浏览器中运行。**
 
-> 如果你对计算逻辑感兴趣，在[reference/validate.xlsx](reference/validate.xlsx)下还有这个 App 的 Excel 版本。注意：Excel 文件可能需要更新以适应汽车特定的计算。你也可以用它来手动计算结果。
+> 如果你对计算逻辑感兴趣，在[reference/validate.xlsx](reference/validate.xlsx)下还有这个 App 的 Excel 版本。注意：Excel 文件可能需要更新以适应汽车特定的计算，但你可以用它来手动验证结果。
 
 <br>
 
@@ -333,7 +332,7 @@ The app will be available at `http://localhost:5173`
 
 **前提条件**
 
-- Node.js 18+
+- Node.js 20+
 - npm 或 yarn
 
 **安装**
@@ -351,7 +350,7 @@ npm run dev
 
 #### 🛠️ 技术栈
 
-**核心框架**: React 19, TypeScript, Vite
+**核心框架**: React 18, TypeScript, Vite
 **UI 与样式**: Tailwind CSS, ApexCharts
 **状态管理与路由**: React Context, React Router v7, LZ-String
 **国际化**: i18next, react-i18next
@@ -392,7 +391,7 @@ npm run dev
 
 <br />
 <div align="center">
-  <sub>感谢读到这里！如果你觉得买车还是租车计算器是一个有趣的项目，请考虑给这个代码库一个<strong>star</strong> ⭐</sub>
+  <sub>感谢读到这里！如果你觉得“买车还是租车计算器”是一个有趣的项目，请考虑给这个代码库一个<strong>star</strong> ⭐</sub>
 </div>
 
 </div>

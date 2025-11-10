@@ -13,46 +13,46 @@ As for the net asset value:
 
 #### Buy Parameters
 
-买房基本数据：
+Buying a car basic data:
 
-a. property_price | 购房价格 | Current House Price | example: $2M
-b. down_payment_percentage | 首付比例 | Down Payment % | example: 25%
-c. mortgage_interest_rate_annual | 贷款利率 | Mortgage Interest Rate | example: 6.75%
-d. mortgage_term_years | 贷款期限 | Mortgage Term | example: 30 years
+a. car_price | 购车价格 | Current Car Price | example: $50k
+b. down_payment_percentage | 首付比例 | Down Payment % | example: 20%
+c. auto_loan_interest_rate_annual | 贷款利率 | Auto Loan Interest Rate | example: 5.5%
+d. auto_loan_term_years | 贷款期限 | Auto Loan Term | example: 5 years
 
-买入时交易一次性成本：
+One-time transaction costs at purchase:
 
-e. closing_costs_percentage_buy | 交易成本 | Closing Cost % | example: 1% of home price
+e. dealer_fees_percentage_buy | 经销商费用 | Dealer Fees % | example: 3% of car price
 
-持有成本：
+Holding costs:
 
-f. property_tax_rate_annual | 房产税率 | Property Tax Rate | example: 1.2% of property price per year
-g. insurance_and_maintenance_rate_annual | 房屋保险与维修 | Insurance + Maintenance | example: 0.8% of property price per year
-h. hoa_fee_annual | HOA 费 | HOA Fee | example: 0
+f. insurance_registration_rate_annual | 保险和注册费率 | Insurance & Registration Rate | example: 2.5% of car value per year
+g. maintenance_fuel_rate_annual | 保养和燃油费率 | Maintenance & Fuel Rate | example: 1.5% of car value per year
+h. registration_fuel_annual | 注册和燃油费 | Registration & Fuel Costs | example: $2000
 
-增值假设：
+Depreciation assumption:
 
-i. home_appreciation_cagr | 房价年增长率 | House Appreciation (CAGR) | example: 5%
+i. car_depreciation_rate | 车辆年折旧率 | Car Depreciation Rate | example: 15%
 
-税收影响：
+Tax implications:
 
 j. marginal_tax_rate | 边际所得税率 | Marginal Tax Rate | example: 24%
-k. mortgage_interest_deduction | 房贷利息抵税 | Mortgage Interest Deduction | example: true
+k. auto_loan_interest_deduction | 车贷利息抵税 | Auto Loan Interest Deduction | example: false
 
-出售时交易一次性成本：
+One-time transaction costs at sale:
 
-l. selling_costs_percentage_sell | 出售交易成本 | Selling Cost | example: 5% of property price
-m. long_term_capital_gains_tax_rate | 长期资本利得税 | Capital Gains Tax Rate on Property Sale | example: 15%
-n. tax_free_capital_gain_amount | 免税增值额度 | Tax-Free Capital Gain | example: $500,000
+l. selling_costs_percentage_sell | 出售交易成本 | Selling Cost | example: 5% of car price
+m. long_term_capital_gains_tax_rate_vehicle | 长期资本利得税 | Capital Gains Tax Rate on Vehicle Sale | example: 15%
+n. tax_free_capital_gain_amount | 免税增值额度 | Tax-Free Capital Gain | example: $0 (not applicable to vehicles)
 
 #### Rent and Invest Parameters
 
-租房基本数据：
+Leasing basic data:
 
-o. current_monthly_rent_amount | 当前月租金 | Current Monthly Rent | example: $6,000
-p. rent_growth_rate_annual | 租金增长率 | Rent Growth | example: same as home appreciation
+o. current_monthly_lease_amount | 当前月租金 | Current Monthly Lease | example: $500
+p. lease_growth_rate_annual | 租金增长率 | Lease Growth | example: same as car depreciation
 
-投资基本数据：
+Investment basic data:
 
 q. investment_options_list | 投资标的选择 | Investment Options List | example: SPY, QQQ, Google
 r. investment_options_cagr_list | 年均涨幅 | Investment Options CAGR | example: 9.25%, 15.2%, 17.22%
@@ -65,26 +65,26 @@ s. long_term_capital_gains_tax_rate | 资本利得税率 | Capital Gains on Inve
 Essential (Visible by Default):
 
 - a. property_price
-  - **Label:** `Property Purchase Price`
+  - **Label:** `Car Price`
   - **Input Type:** Number input, formatted for currency, slider from 100k to 10M or number input for $.
-  - **Placeholder/Example:** `e.g., $750,000`
+  - **Placeholder/Example:** `e.g., $35,000`
 - b. down_payment_percentage
   - **Label:** `Down Payment`
   - **Input Type:** Percentage input, slider from 0-100% or number input for %.
-  - **Dynamic Display:** Show the calculated dollar amount of the down payment next to it. (`$ [property_price * down_payment_percentage]`)
-  - **Default:** `25%`
+  - **Dynamic Display:** Show the calculated dollar amount of the down payment next to it. (`$ [car_price * down_payment_percentage]`)
+  - **Default:** `20%`
 - c. mortgage_interest_rate_annual
-  - **Label:** `Mortgage Interest Rate`
+  - **Label:** `Auto Loan Interest Rate`
   - **Input Type:** Number input, formatted as a percentage (e.g., `6.75%`).
-  - **Placeholder/Example:** `e.g., 6.75%`
+  - **Placeholder/Example:** `e.g., 5.5%`
 - d. mortgage_term_years
-  - **Label:** `Mortgage Term`
-  - **Input Type:** radio buttons, `15 Years`, `20 Years`, `30 Years`.
-  - **Default:** `30 Years`
+  - **Label:** `Loan Term`
+  - **Input Type:** radio buttons, `3 Years`, `5 Years`, `7 Years`.
+  - **Default:** `5 Years`
 - i. home_appreciation_cagr
-  - **Label:** `Expected Annual Home Appreciation`
+  - **Label:** `Expected Annual Vehicle Depreciation`
   - **Input Type:** Slider, from 0% to 10% or number input for %.
-  - **Default:** `3.5%` (Provide a tooltip explaining this is an estimate).
+  - **Default:** `15%` (Provide a tooltip explaining this is an estimate).
 
 Advanced Options (Initially Collapsed - User clicks to expand "More Options" or "Advanced Options"):
 
@@ -92,37 +92,37 @@ Buying/Selling Transaction Costs:
 
 - e. closing_costs_percentage_buy
 
-  - **Label:** `Closing Costs (Current Buy)`
+  - **Label:** `Dealer Fees (Current Buy)`
   - **Input Type:** Percentage input.
-  - **Tooltip:** "As a % of property price (e.g., loan origination, title, and other closing costs)."
-  - **Default:** `2%`
+  - **Tooltip:** "As a % of car price (e.g., documentation, destination fees)."
+  - **Default:** `3%`
 
 - l. selling_costs_percentage_sell
   - **Label:** `Selling Costs (Future Sale)`
   - **Input Type:** Percentage input.
-  - **Tooltip:** "As a % of future sale price (e.g., agent commissions)."
+  - **Tooltip:** "As a % of future sale price (e.g., reconditioning, advertising)."
   - **Default:** `5%`
 
 Holding Costs:
 
 - f. property_tax_rate_annual
 
-  - **Label:** `Annual Property Tax Rate`
+  - **Label:** `Annual Insurance & Registration Rate`
   - **Input Type:** Percentage input.
-  - **Tooltip:** "As a % of the property's assessed value each year."
-  - **Default:** `1.1%`
+  - **Tooltip:** "As a % of the vehicle's value each year."
+  - **Default:** `2.5%`
 
 - g. insurance_and_maintenance_rate_annual
 
-  - **Label:** `Annual Insurance & Maintenance`
+  - **Label:** `Annual Maintenance & Fuel Rate`
   - **Input Type:** Percentage input.
-  - **Tooltip:** "Combined estimate as a % of the property's value each year."
-  - **Default:** `1.0%`
+  - **Tooltip:** "Combined estimate as a % of the vehicle's value each year."
+  - **Default:** `1.5%`
 
 - h. hoa_fee_annual
-  - **Label:** `Annual HOA Fee`
+  - **Label:** `Annual Registration & Fuel Costs`
   - **Input Type:** Number input (currency).
-  - **Default:** `$0`
+  - **Default:** `$2000`
 
 Tax Implications:
 
@@ -130,27 +130,27 @@ Tax Implications:
 
   - **Label:** `Your Marginal Income Tax Rate`
   - **Input Type:** Percentage input.
-  - **Tooltip:** "Your combined federal and state rate. Used to estimate mortgage interest deduction benefits."
+  - **Tooltip:** "Your combined federal and state rate. Used to estimate auto loan interest deduction benefits."
   - **Default:** `24%`
 
 - k. mortgage_interest_deduction
 
-  - **Label:** `Claim Mortgage Interest Deduction?`
+  - **Label:** `Claim Auto Loan Interest Deduction?`
   - **Input Type:** Toggle switch (Yes/No).
-  - **Tooltip:** "If you itemize deductions on your tax return, you can deduct the interest paid on your mortgage."
-  - **Default:** `Yes`
+  - **Tooltip:** "If you itemize deductions on your tax return, you can deduct the interest paid on your auto loan (rare for personal use)."
+  - **Default:** `No`
 
 - m. long_term_capital_gains_tax_rate
 
-  - **Label:** `Capital Gains Tax Rate (Property Sale)`
+  - **Label:** `Capital Gains Tax Rate (Vehicle Sale)`
   - **Input Type:** Percentage input.
   - **Default:** `15%`
 
 - n. tax_free_capital_gain_amount
-  - **Label:** `Tax-Free Capital Gain Amount (Home Sale)`
+  - **Label:** `Tax-Free Capital Gain Amount (Vehicle Sale)`
   - **Input Type:** Radio buttons, `Single`, `Married`, `Head of Household`.
-  - **Tooltip:** "$250,000 for single, $500,000 for married filing jointly in the US."
-  - **Default:** `Married`
+  - **Tooltip:** "Not applicable for vehicles. This is typically $0."
+  - **Default:** `N/A`
 
 #### Rent and Invest Parameters
 
@@ -158,16 +158,16 @@ Basic Options:
 
 - o. current_monthly_rent_amount
 
-  - **Label:** `Monthly Rent`
+  - **Label:** `Monthly Lease`
   - **Input Type:** Number input (currency), slider from $1,000 to $10,000.
-  - **Placeholder/Example:** `e.g., $2,500`
+  - **Placeholder/Example:** `e.g., $500`
 
 - p. rent_growth_rate_annual
 
-  - **Label:** `Expected Annual Rent Increase`
+  - **Label:** `Expected Annual Lease Increase`
   - **Input Type:** Percentage input, slider from 0% to 10% or number input for %.
-  - **Option:** A checkbox: "Same as home appreciation rate."
-  - **Default:** `3.5%`, checkbox checked.
+  - **Option:** A checkbox: "Same as vehicle depreciation rate."
+  - **Default:** `3.0%`, checkbox unchecked.
 
 - q. investment_options_list
 - r. investment_options_cagr_list

@@ -4,10 +4,9 @@
       "prefix": "Should I ",
       "buy": "Buy",
       "middle": " or ",
-      "rent": "Lease",
-      "suffix": " a Car?"
+      "rent": "Lease"
     },
-    "description": "Instantly see which option leaves you richer in the future.",
+    "description": "Instantly see which option leaves you richer.",
     "language": {
       "english": "🇺🇸 English",
       "chinese": "🇨🇳 中文"
@@ -34,17 +33,17 @@
     },
     "explanation": {
       "buyPrefix": "If you buy a",
-      "buyMiddle": "car today (with",
-      "buyDownPayment": "down payment) and it depreciates to",
+      "buyMiddle": "car today (with a",
+      "buyDownPayment": "down payment) and it depreciates in value to",
       "buyMiddle2": "in",
       "buySuffix": "years, your net worth would be",
       "rentPrefix": "If you lease for",
       "rentSuffix": "/month and invest the difference, your net worth would be"
     },
     "assumptions": {
-      "title": "Key Assumptions",
-      "homeValue": "Car value:",
-      "currentRent": "Current lease:",
+      "title": "Your Assumptions",
+      "homeValue": "Car Price:",
+      "currentRent": "Monthly Lease:",
       "downPayment": "Down payment:",
       "investmentReturns": "Investment returns:",
       "homeAppreciation": "Vehicle depreciation:",
@@ -56,8 +55,8 @@
       "netWorthIn": "Net Worth in",
       "years": "Years",
       "buyExplanation": {
-        "youOwn": "You own a",
-        "homeAndOwe": "car and owe",
+        "youOwn": "You own a car worth",
+        "homeAndOwe": "and owe",
         "onMortgage": "on your auto loan",
         "alsoInvested": "You have also invested",
         "nowWorth": "and now it's worth"
@@ -74,12 +73,12 @@
       "button": "How is this calculated?",
       "buttonTitle": "Learn about our calculation methodology",
       "buttonPrompt": "How is this calculated?",
-      "title": "How Is This Calculated?",
+      "title": "Calculation Methodology",
       "closeButton": "Got it",
       "intro": "Our calculator uses a \"same money in, see who ends up richer\" approach to ensure a fair comparison between buying and leasing.",
       "corePrinciple": {
         "title": "Core Principle",
-        "description": "Both scenarios assume the same total cash outflow. When one option costs less in a given year, the savings are automatically invested. This captures the true opportunity cost of each decision."
+        "description": "Both scenarios start with the same total cash outflow. When one option costs less in a given year, the savings are automatically invested. This captures the true opportunity cost of each decision."
       },
       "howItWorks": {
         "title": "How It Works",
@@ -87,7 +86,7 @@
           "title": "Track All Cash Outflows",
           "description": "We calculate every dollar you spend in both scenarios:",
           "buyItems": "Buy: Down payment, dealer fees, auto loan payments (principal + interest), insurance, maintenance, registration, fuel costs",
-          "rentItems": "Lease: Monthly lease payments"
+          "rentItems": "Lease: Monthly payments"
         },
         "step2": {
           "title": "Invest the Difference",
@@ -95,7 +94,7 @@
         },
         "step3": {
           "title": "Calculate Final Net Worth",
-          "description": "At the end of your chosen time horizon, we calculate your net worth for each scenario: vehicle value minus auto loan balance (plus any investments) for buying, and investment portfolio value for leasing. Both values account for applicable taxes."
+          "description": "At the end of your chosen time horizon, we calculate your net worth for each scenario: vehicle value minus auto loan balance (plus any investments) for buying, and the total value of your investment portfolio for leasing. Both outcomes account for applicable taxes."
         }
       },
       "example": {
@@ -103,7 +102,7 @@
         "year1": {
           "label": "Year 1:",
           "buy": "Buy: $20k down payment + $2k dealer fees + $12k auto loan + $3k insurance = $37k",
-          "rent": "Lease: $6k annual lease = $6k",
+          "rent": "Lease: $6k in annual lease payments = $6k",
           "result": "→ Lease scenario invests the $31k difference"
         },
         "laterYears": {
@@ -116,8 +115,8 @@
         "description": "All costs flow through to the final comparison via the differential investment mechanism:",
         "items": {
           "mortgagePayments": "Auto loan payments (principal + interest)",
-          "propertyTaxes": "Insurance & registration",
-          "insurance": "Insurance & maintenance",
+          "propertyTaxes": "Insurance and registration",
+          "insurance": "Insurance and maintenance",
           "maintenance": "Maintenance, registration, and fuel costs",
           "closingCosts": "Dealer fees and selling costs",
           "taxBenefits": "Tax benefits (auto loan interest deduction, where applicable)",
@@ -127,7 +126,7 @@
       },
       "keyTakeaway": {
         "title": "Key Takeaway",
-        "description": "The \"Net Worth Projection\" shows your final wealth under a \"same money in\" constraint. All spending (interest, taxes, holding costs) is fully accounted for through the investment of cost differences. You're seeing which option builds more wealth when you spend the same total amount."
+        "description": "The \"Net Worth Projection\" shows your final wealth under a \"same money in\" constraint. All spending (interest, taxes, holding costs) is fully accounted for by investing the cost differences. You're seeing which option builds more wealth when you spend the same total amount."
       }
     }
   },
@@ -141,21 +140,21 @@
     },
     "buy": {
       "homePrice": "Car Price",
-      "downPayment": "Down Payment",
-      "mortgageRate": "Auto Loan Interest Rate",
-      "mortgageTerm": "Loan Term",
-      "homeAppreciation": "Expected Annual Vehicle Depreciation",
+      "downPayment": "Down Payment %",
+      "autoLoanRate": "Auto Loan Interest Rate",
+      "autoLoanTerm": "Loan Term",
+      "carDepreciation": "Expected Annual Vehicle Depreciation",
       "advancedOptions": "Advanced Options",
       "transactionCosts": "Buying/Selling Transaction Costs",
-      "closingCosts": "Dealer Fees (Current Buy)",
+      "dealerFees": "Dealer Fees (Current Buy)",
       "sellingCosts": "Selling Costs (Future Sale)",
       "holdingCosts": "Holding Costs (Annual)",
-      "propertyTax": "Insurance & Registration Rate",
-      "insuranceMaintenance": "Insurance & Maintenance",
-      "hoaFee": "Registration & Fuel Costs",
+      "insuranceRegistration": "Insurance & Registration Rate",
+      "maintenanceFuel": "Maintenance & Fuel Rate",
+      "registrationAndFuel": "Registration & Fuel Costs",
       "taxImplications": "Tax Implications",
       "marginalTaxRate": "Marginal Income Tax Rate",
-      "mortgageDeduction": "Claim Auto Loan Interest Deduction (where applicable)",
+      "autoLoanDeduction": "Claim Auto Loan Interest Deduction (where applicable)",
       "capitalGainsTax": "Capital Gains Tax Rate",
       "filingStatus": "Filing Status",
       "married": "Married",
@@ -166,7 +165,7 @@
     "rent": {
       "monthlyRent": "Monthly Lease",
       "rentIncrease": "Expected Annual Lease Increase",
-      "sameAsDepreciation": "Same as vehicle depreciation rate",
+      "sameAsDepreciation": "Same as vehicle depreciation",
       "investmentReturn": "Annual Investment Return",
       "capitalGainsTax": "Capital Gains Tax Rate",
       "switchToBuy": "Switch to Buy"
@@ -204,7 +203,7 @@
       "annualOutflow": "Annual Cash Outflow",
       "cumulativeOutflow": "Cumulative Cash Outflow",
       "series": {
-        "homeCosts": "Car Ownership Costs",
+        "homeCosts": "Ownership Costs",
         "investmentBuy": "Investment (Buy)",
         "rentCosts": "Lease Costs",
         "investmentRent": "Investment (Lease)"
@@ -215,7 +214,7 @@
     }
   },
   "footer": {
-    "copyright": "© 2025 Buy vs. Lease Car Calculator",
+    "copyright": "© 2024 Buy vs. Lease Car Calculator",
     "dataCreditsPrefix": "Special thanks to ",
     "dataCreditsSuffix": " for automotive market data support"
   }

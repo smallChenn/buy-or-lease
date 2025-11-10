@@ -62,7 +62,7 @@ export default function DebugPanel() {
               </h4>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-1 text-xs">
                 <div className="flex justify-between">
-                  <span>Vehicle Price:</span>
+                  <span>Property Price:</span>
                   <span className="font-medium">{formatCurrency(state.buyInputs.carPrice)}</span>
                 </div>
                 <div className="flex justify-between">
@@ -78,11 +78,11 @@ export default function DebugPanel() {
                   <span className="font-medium">{state.buyInputs.autoLoanTermYears} years</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Vehicle Depreciation:</span>
+                  <span>Car Depreciation:</span>
                   <span className="font-medium">{state.buyInputs.carDepreciationRate}% annually</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Dealer Fees:</span>
+                  <span>Closing Costs:</span>
                   <span className="font-medium">{state.buyInputs.dealerFeesPercentage}% ({formatCurrency(results.preliminary.autoLoan.dealerFeesAmount)})</span>
                 </div>
                 <div className="flex justify-between">
@@ -90,15 +90,11 @@ export default function DebugPanel() {
                   <span className="font-medium">{state.buyInputs.sellingCostsPercentage}%</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Insurance/Registration:</span>
-                  <span className="font-medium">{state.buyInputs.insuranceAndRegistrationRateAnnual}% annually</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Maintenance/Fuel:</span>
+                  <span>Insurance/Maintenance:</span>
                   <span className="font-medium">{state.buyInputs.maintenanceAndFuelRateAnnual}% annually</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Registration & Fuel:</span>
+                  <span>Registration/Fuel (Annual):</span>
                   <span className="font-medium">{formatCurrency(state.buyInputs.registrationAndFuelAnnual)} annually</span>
                 </div>
                 <div className="flex justify-between">
@@ -110,12 +106,8 @@ export default function DebugPanel() {
                   <span className="font-medium">{state.buyInputs.autoLoanInterestDeduction ? 'Yes' : 'No'}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Capital Gains Tax (Vehicle):</span>
+                  <span>Capital Gains Tax (Property):</span>
                   <span className="font-medium">{state.buyInputs.longTermCapitalGainsTaxRateVehicle}%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Tax-Free Capital Gain:</span>
-                  <span className="font-medium">{formatCurrency(results.preliminary.taxFreeCapitalGainAmount)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Filing Status:</span>
@@ -136,11 +128,11 @@ export default function DebugPanel() {
               </h4>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-1 text-xs">
                 <div className="flex justify-between">
-                  <span>Monthly Rent:</span>
+                  <span>Monthly Lease:</span>
                   <span className="font-medium">{formatCurrency(state.rentInputs.currentMonthlyRentAmount)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Rent Growth:</span>
+                  <span>Lease Growth:</span>
                   <span className="font-medium">{state.rentInputs.rentGrowthRateAnnual}% annually</span>
                 </div>
                 <div className="flex justify-between">
@@ -208,18 +200,18 @@ export default function DebugPanel() {
                   BUY SCENARIO
                 </h4>
                 <div className="text-xs space-y-1">
-                  <div className="font-semibold text-primary-700 mb-2">Vehicle & Assets</div>
+                  <div className="font-semibold text-primary-700 mb-2">Property & Assets</div>
                   <div className="flex justify-between">
-                    <span>Vehicle Value:</span>
+                    <span>Property Value:</span>
                     <span className="font-medium">{formatCurrency(selectedYearData.buy.vehicleValue)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Remaining Auto Loan:</span>
-                    <span className="font-medium">{formatCurrency(selectedYearData.buy.remainingLoanBalance)}</span>
+                    <span>Remaining Mortgage:</span>
+                    <span className="font-medium">{formatCurrency(selectedYearData.buy.remainingAutoLoanBalance)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Vehicle Equity:</span>
-                    <span className="font-medium">{formatCurrency(selectedYearData.buy.vehicleValue - selectedYearData.buy.remainingLoanBalance)}</span>
+                    <span>Home Equity:</span>
+                    <span className="font-medium">{formatCurrency(selectedYearData.buy.vehicleValue - selectedYearData.buy.remainingAutoLoanBalance)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Additional Investment Portfolio:</span>
@@ -282,15 +274,15 @@ export default function DebugPanel() {
                     <span className="font-medium">{formatCurrency(selectedYearData.buy.vehicleValue)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Selling Costs ({state.buyInputs.sellingCostsPercentage}%):</span>
+                    <span>Selling Costs ({state.buyInputs.sellingCostsPercentageSell}%):</span>
                     <span className="font-medium">-{formatCurrency(selectedYearData.buy.vehicleValue * state.buyInputs.sellingCostsPercentage / 100)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Remaining Auto Loan:</span>
-                    <span className="font-medium">-{formatCurrency(selectedYearData.buy.remainingLoanBalance)}</span>
+                    <span>Remaining Mortgage:</span>
+                    <span className="font-medium">-{formatCurrency(selectedYearData.buy.remainingAutoLoanBalance)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Tax on Vehicle Gain:</span>
+                    <span>Tax on Property Gain:</span>
                     <span className="font-medium">-{formatCurrency(selectedYearData.buy.taxOnVehicleGain)}</span>
                   </div>
                   {selectedYearData.buy.additionalInvestmentPortfolio > 0 && (
@@ -445,7 +437,7 @@ export default function DebugPanel() {
             <div className="bg-gray-50 p-4 rounded-lg">
               <h4 className="font-semibold text-gray-800 mb-3 flex items-center">
                 <i className="fas fa-cogs mr-2"></i>
-                Auto Loan Calculation Details
+                Mortgage Calculation Details
               </h4>
               <div className="text-xs space-y-1">
                 <div className="flex justify-between">
@@ -480,10 +472,6 @@ export default function DebugPanel() {
                 <div className="flex justify-between">
                   <span>Investment Return Rate:</span>
                   <span className="font-medium">{results.preliminary.investmentReturnRate}%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Tax-Free Capital Gain Amount:</span>
-                  <span className="font-medium">{formatCurrency(results.preliminary.taxFreeCapitalGainAmount)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Break-Even Year:</span>

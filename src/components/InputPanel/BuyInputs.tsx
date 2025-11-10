@@ -94,7 +94,7 @@ export default function BuyInputs({ onSwitchToRent }: BuyInputsProps) {
       {/* Property Price */}
       <div>
         <div className="flex justify-between items-center mb-3">
-          <label className="text-sm font-medium text-dark-700">{t("inputs.buy.carPrice")}</label>
+          <label className="text-sm font-medium text-dark-700">{t("inputs.buy.homePrice")}</label>
           <div className="flex items-center space-x-2">
             <span className="text-xs text-dark-500">$</span>
             <input

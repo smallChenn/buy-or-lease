@@ -4,7 +4,7 @@
 
 ## 一、产品背景与目标
 
-本工具旨在帮助用户基于当前市场数据和历史增长率，直观地比较（贷款）买房和租房 + 投资股票两种策略在未来对个人财务状况的影响。通过用户自定义输入及内置的默认数据进行模拟计算，提供数据化、图表化的输出结果，辅助用户做出更加理性的资产配置决策。
+本工具旨在帮助用户基于当前市场数据和历史增长率，直观地比较（贷款）买车和租赁 + 投资股票两种策略在未来对个人财务状况的影响。通过用户自定义输入及内置的默认数据进行模拟计算，提供数据化、图表化的输出结果，辅助用户做出更加理性的资产配置决策。
 
 ---
 
@@ -20,44 +20,44 @@
 
 #### Buy Parameters
 
-买房基本数据：
+买车基本数据：
 
-- 房屋购买价格（默认 $2,000,000）| Current Home Price
+- 汽车购买价格（默认 $35,000）| Current Car Price
 - 首付比例（默认 25%）| Down Payment
-- 贷款利率（默认 6.75%）| Mortgage Interest Rate
-- 贷款期限（默认 30 年）| Mortgage Term
+- 贷款利率（默认 5.5%）| Auto Loan Interest Rate
+- 贷款期限（默认 5 年）| Auto Loan Term
 
 买入时交易一次性成本：
 
-- Closing cost（默认贷款金额的 1%）| Closing Cost
+- 经销商费用（默认车价的 3%）| Dealer Fees
 
 持有成本：
 
-- 房产税率（默认 1.2%/年）| Property Tax Rate
-- 房屋保险与维修（默认 0.8%房价/年）| Insurance + Maintenance
-- HOA 费用（默认 0）| HOA Fee
+- 保险和注册费率（默认 2.5%/年）| Insurance & Registration Rate
+- 保养和燃油费率（默认 1.5%/年）| Maintenance & Fuel Rate
+- 注册费和燃油费（默认 $2,000）| Registration & Fuel Costs
 
-增值假设：
+折旧假设：
 
-- 房价年增长率（默认可根据区域设置）| Home Appreciation (CAGR)
+- 车辆年折旧率（默认 15%）| Car Depreciation (CAGR)
 
 税收影响：
 
 - 边际所得税率（默认 24%）| Marginal Tax Rate
-- 房贷利息抵税（默认开启）| Mortgage Interest Deduction
+- 车贷利息抵税（默认关闭）| Auto Loan Interest Deduction
 
 出售时交易一次性成本：
 
-- Selling cost（默认房屋售价的 5%）| Selling Cost
-- Capital Gains Tax Rate on Property Sale
-- 免税增值额度（默认 $250,000）| Tax-Free Capital Gain
+- Selling cost（默认车辆售价的 5%）| Selling Cost
+- Capital Gains Tax Rate on Vehicle Sale
+- 免税增值额度（默认 $0）| Tax-Free Capital Gain
 
 #### Rent and Invest Parameters
 
-租房基本数据：
+租赁基本数据：
 
-- 当前月租金（默认 $6,000）| Current Monthly Rent
-- 年租金增长率（默认与房价增长率相同）| Rent Growth
+- 当前月租金（默认 $500）| Current Monthly Lease
+- 年租金增长率（默认 3%）| Lease Growth
 
 投资基本数据：
 
@@ -72,7 +72,7 @@
 #### 核心结果
 
 - 两种方案的“X 年后净资产”对比
-- 净资产差额高亮
+- 净资产差额高亮显示
 
 #### 图表展示
 
@@ -96,12 +96,12 @@
 
 ---
 
-## 四、数据与模型
+- ## 四、数据与模型（示例）
 
-- 房产增长率来自湾区不同 zip code 的实际成交数据（2015–2024）
+- 车辆折旧率来自不同车型的实际市场数据
 - 股票增长率参考 SPY/QQQ/GOOG 实际市场表现（2015–2024）
 - 模拟使用复利计算方式
-- 税务模型简化为平均值模拟（见第四张图税务假设）
+- 税务模型简化为平均值模拟
 
 ---
 

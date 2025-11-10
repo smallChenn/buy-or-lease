@@ -10,34 +10,33 @@ export type FilingStatus = "Single" | "Married";
 // Buy scenario inputs
 export interface BuyInputs {
   // Essential inputs
-  vehiclePrice: number;
+  carPrice: number;
   downPaymentPercentage: number;
   autoLoanInterestRateAnnual: number;
-  loanTermYears: 3 | 5 | 7 | 10;
-  vehicleDepreciationRate: number;
+  autoLoanTermYears: 3 | 5 | 7 | 10;
+  carDepreciationRate: number;
 
   // Advanced inputs - transaction costs
-  dealerFeesPercentageBuy: number;
-  sellingCostsPercentageSell: number;
+  dealerFeesPercentage: number;
+  sellingCostsPercentage: number;
 
   // Advanced inputs - holding costs
   insuranceAndRegistrationRateAnnual: number;
-  maintenanceRateAnnual: number;
-  fuelCostsAnnual: number;
+  maintenanceAndFuelRateAnnual: number;
+  registrationAndFuelAnnual: number;
 
   // Advanced inputs - tax implications
   marginalTaxRate: number;
   autoLoanInterestDeduction: boolean;
   longTermCapitalGainsTaxRateVehicle: number;
-  taxFreeCapitalGainAmount: number;
   filingStatus: FilingStatus;
 }
 
 // Lease & invest scenario inputs
 export interface RentInputs {
-  currentMonthlyLeaseAmount: number;
-  leaseGrowthRateAnnual: number;
-  sameAsVehicleDepreciation: boolean;
+  currentMonthlyRentAmount: number;
+  rentGrowthRateAnnual: number;
+  sameAsHomeAppreciation: boolean;
   selectedInvestmentOption: InvestmentOption;
   customInvestmentReturn: number;
   longTermCapitalGainsTaxRateInvestment: number;
@@ -78,33 +77,32 @@ export type AppAction =
 // Default values
 const defaultBuyInputs: BuyInputs = {
   // Essential
-  vehiclePrice: 35000,
+  carPrice: 35000,
   downPaymentPercentage: 20,
   autoLoanInterestRateAnnual: 5.5,
-  loanTermYears: 5,
-  vehicleDepreciationRate: 15, // Cars depreciate, not appreciate
+  autoLoanTermYears: 5,
+  carDepreciationRate: 15, // Cars depreciate, not appreciate
 
   // Transaction costs
-  dealerFeesPercentageBuy: 3,
-  sellingCostsPercentageSell: 5,
+  dealerFeesPercentage: 3,
+  sellingCostsPercentage: 5,
 
   // Holding costs
   insuranceAndRegistrationRateAnnual: 2.5,
-  maintenanceRateAnnual: 1.5,
-  fuelCostsAnnual: 2000,
+  maintenanceAndFuelRateAnnual: 1.5,
+  registrationAndFuelAnnual: 2000,
 
   // Tax implications
   marginalTaxRate: 24,
   autoLoanInterestDeduction: false, // Usually not deductible for personal use
   longTermCapitalGainsTaxRateVehicle: 15,
-  taxFreeCapitalGainAmount: 0, // No tax-free threshold for vehicles
   filingStatus: "Married",
 };
 
 const defaultRentInputs: RentInputs = {
-  currentMonthlyLeaseAmount: 500,
-  leaseGrowthRateAnnual: 3.0,
-  sameAsVehicleDepreciation: false,
+  currentMonthlyRentAmount: 500,
+  rentGrowthRateAnnual: 3.0,
+  sameAsHomeAppreciation: false,
   selectedInvestmentOption: "SPY",
   customInvestmentReturn: 10,
   longTermCapitalGainsTaxRateInvestment: 15,
@@ -151,17 +149,12 @@ function appReducer(state: AppState, action: AppAction): AppState {
         [action.field]: action.value,
       };
 
-      // Update tax-free capital gain amount when filing status changes
-      if (action.field === "filingStatus") {
-        newBuyInputs.taxFreeCapitalGainAmount = getTaxFreeCapitalGainAmount(action.value as FilingStatus);
-      }
-
       // If vehicle depreciation rate changes and lease is set to follow it, update lease growth rate
       let newRentInputs = state.rentInputs;
-      if (action.field === "vehicleDepreciationRate" && state.rentInputs.sameAsVehicleDepreciation) {
+      if (action.field === "carDepreciationRate" && state.rentInputs.sameAsHomeAppreciation) {
         newRentInputs = {
           ...state.rentInputs,
-          leaseGrowthRateAnnual: action.value as number,
+          rentGrowthRateAnnual: action.value as number,
         };
       }
 
@@ -187,9 +180,9 @@ function appReducer(state: AppState, action: AppAction): AppState {
         [action.field]: action.value,
       };
 
-      // If sameAsVehicleDepreciation is enabled, sync lease growth with vehicle depreciation
-      if (action.field === "sameAsVehicleDepreciation" && action.value) {
-        newRentInputs.leaseGrowthRateAnnual = state.buyInputs.vehicleDepreciationRate;
+      // If sameAsHomeAppreciation is enabled, sync lease growth with vehicle depreciation
+      if (action.field === "sameAsHomeAppreciation" && action.value) {
+        newRentInputs.rentGrowthRateAnnual = state.buyInputs.carDepreciationRate;
       }
 
       // Sync capital gains tax rates between buy and lease inputs
