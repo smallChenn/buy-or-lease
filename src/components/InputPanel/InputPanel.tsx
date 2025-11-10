@@ -1,7 +1,8 @@
+import * as React from "react";
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useApp } from "../../contexts";
-import { cityDefaults, getCityDefault } from "../../data/cityDefaults";
+import { vehicleDefaults, getVehicleDefault } from "../../data/cityDefaults";
 import BuyInputs from "./BuyInputs";
 import RentInputs from "./RentInputs";
 
@@ -12,16 +13,16 @@ export default function InputPanel() {
   const { loadVehicleDefaults } = useApp();
   const [activeTab, setActiveTab] = useState<ActiveTab>("buy");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedCity, setSelectedCity] = useState(cityDefaults[0]);
+  const [selectedCity, setSelectedCity] = useState(vehicleDefaults[0]);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({});
 
   const toggleGroup = (id: string) => {
-    setExpandedGroups((prev) => ({ ...prev, [id]: !prev[id] }));
+    setExpandedGroups((prev: Record<string, boolean>) => ({ ...prev, [id]: !prev[id] }));
   };
 
   const handleCitySelect = (cityId: string) => {
-    const cityData = getCityDefault(cityId);
+    const cityData = getVehicleDefault(cityId); // Corrected function call
 
     if (cityData) {
       setSelectedCity(cityData);
@@ -73,19 +74,19 @@ export default function InputPanel() {
           {isDropdownOpen && (
             <div className="absolute top-full right-0 mt-1 w-60 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
               <div className="py-1">
-                {cityDefaults.map((city) => (
+                {vehicleDefaults.map((city) => (
                   <div
                     key={city.id}
-                    onPointerEnter={(e) => {
-                      if (e.pointerType === "mouse" && city.children && city.children.length > 0) {
-                        setExpandedGroups((prev) => ({ ...prev, [city.id]: true }));
-                      }
-                    }}
-                    onPointerLeave={(e) => {
-                      if (e.pointerType === "mouse" && city.children && city.children.length > 0) {
-                        setExpandedGroups((prev) => ({ ...prev, [city.id]: false }));
-                      }
-                    }}
+          onPointerEnter={(e: React.PointerEvent) => {
+            if (e.pointerType === "mouse" && city.children && city.children.length > 0) {
+              setExpandedGroups((prev: Record<string, boolean>) => ({ ...prev, [city.id]: true }));
+            }
+          }}
+          onPointerLeave={(e: React.PointerEvent) => {
+            if (e.pointerType === "mouse" && city.children && city.children.length > 0) {
+              setExpandedGroups((prev: Record<string, boolean>) => ({ ...prev, [city.id]: false }));
+            }
+          }}
                   >
                     {city.children && city.children.length > 0 ? (
                       <button

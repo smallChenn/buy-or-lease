@@ -13,9 +13,9 @@ export default function NetWorthExplanation() {
   const targetResult = calculations.getResultsForYear(appSettings.projectionYears);
 
   // Calculate future home value
-  const futureHomeValue =
-    targetResult?.buy.propertyValue ??
-    buyInputs.propertyPrice * Math.pow(1 + buyInputs.homeAppreciationCagr / 100, appSettings.projectionYears);
+  const futureVehicleValue =
+    targetResult?.buy.vehicleValue ??
+    buyInputs.carPrice * Math.pow(1 - buyInputs.carDepreciationRate / 100, appSettings.projectionYears);
 
   // Get net worth values from calculations
   const comparison = calculations.getNetWorthComparison(appSettings.projectionYears, state.appSettings.showCashOut);
@@ -43,11 +43,11 @@ export default function NetWorthExplanation() {
     <>
       <p className="text-xl md:text-2xl leading-relaxed text-dark-800 mb-1 font-medium">
         {i18n.language === "zh"
-          ? <>如果你今天购买一套价值<span className="font-bold text-primary-700">{formatLocalizedCurrency(buyInputs.propertyPrice)}</span>的房子（首付{buyInputs.downPaymentPercentage}%），经过{appSettings.projectionYears}年增值到<span className="font-bold text-primary-700">{formatLocalizedCurrency(futureHomeValue)}</span>，你的净资产将达到<span className="font-bold text-primary-700 border-b-2 border-primary-300">{formatLocalizedCurrency(buyNetWorth)}</span>。</>
-          : `${t("hero.explanation.buyPrefix")} ${formatLocalizedCurrency(buyInputs.propertyPrice)} ${t("hero.explanation.buyMiddle")} ${buyInputs.downPaymentPercentage}% ${t("hero.explanation.buyDownPayment")} `}
+          ? <>如果你今天购买一辆价值<span className="font-bold text-primary-700">{formatLocalizedCurrency(buyInputs.carPrice)}</span>的车（首付{buyInputs.downPaymentPercentage}%），经过{appSettings.projectionYears}年折旧到<span className="font-bold text-primary-700">{formatLocalizedCurrency(futureVehicleValue)}</span>，你的净资产将达到<span className="font-bold text-primary-700 border-b-2 border-primary-300">{formatLocalizedCurrency(buyNetWorth)}</span>。</>
+          : `${t("hero.explanation.buyPrefix")} ${formatLocalizedCurrency(buyInputs.carPrice)} ${t("hero.explanation.buyMiddle")} ${buyInputs.downPaymentPercentage}% ${t("hero.explanation.buyDownPayment")} `}
         {i18n.language !== "zh" && (
           <>
-            <span className="font-bold text-primary-700">{formatLocalizedCurrency(futureHomeValue)}</span>{" "}
+            <span className="font-bold text-primary-700">{formatLocalizedCurrency(futureVehicleValue)}</span>{" "}
             {t("hero.explanation.buyMiddle2")} <span className="font-bold">{appSettings.projectionYears}</span> {t("hero.explanation.buySuffix")}{" "}
             <span className="font-bold text-primary-700 border-b-2 border-primary-300">{formatLocalizedCurrency(buyNetWorth)}</span>.
           </>

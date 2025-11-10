@@ -7,96 +7,91 @@ export interface VehicleDefault {
   children?: VehicleDefault[];
 }
 
-export const cityDefaults: VehicleDefault[] = [
+export const vehicleDefaults: VehicleDefault[] = [
   {
     id: "default",
     name: "Default",
     data: {
-      vehiclePrice: 35000,
-      downPaymentPercentage: 20,
-      autoLoanInterestRateAnnual: 5.5,
-      loanTermYears: 5,
-      vehicleDepreciationRate: 15,
-      insuranceAndRegistrationRateAnnual: 2.5,
-      maintenanceRateAnnual: 1.5,
-      fuelCostsAnnual: 2000,
-      currentMonthlyLeaseAmount: 500,
-      leaseGrowthRateAnnual: 3.0,
-      sameAsVehicleDepreciation: false,
+  carPrice: 35000,
+  downPaymentPercentage: 20,
+  autoLoanInterestRateAnnual: 5.5,
+  autoLoanTermYears: 5,
+  carDepreciationRate: 15,
+  insuranceAndRegistrationRateAnnual: 2.5,
+  maintenanceAndFuelRateAnnual: 3.5, // 1.5 + 2.0 (fuel)
+  registrationAndFuelAnnual: 2000,
+  currentMonthlyRentAmount: 500,
+  rentGrowthRateAnnual: 3.0,
     },
   },
   {
     id: "economy",
     name: "Economy Car",
     data: {
-      vehiclePrice: 25000,
-      downPaymentPercentage: 20,
-      autoLoanInterestRateAnnual: 5.0,
-      loanTermYears: 5,
-      vehicleDepreciationRate: 20,
-      insuranceAndRegistrationRateAnnual: 2.0,
-      maintenanceRateAnnual: 1.0,
-      fuelCostsAnnual: 1500,
-      currentMonthlyLeaseAmount: 350,
-      leaseGrowthRateAnnual: 3.0,
-      sameAsVehicleDepreciation: false,
+  carPrice: 25000,
+  downPaymentPercentage: 20,
+  autoLoanInterestRateAnnual: 5.0,
+  autoLoanTermYears: 5,
+  carDepreciationRate: 20,
+  insuranceAndRegistrationRateAnnual: 2.0,
+  maintenanceAndFuelRateAnnual: 2.5, // 1.0 + 1.5 (fuel)
+  registrationAndFuelAnnual: 1500,
+  currentMonthlyRentAmount: 350,
+  rentGrowthRateAnnual: 3.0,
     },
   },
   {
     id: "midrange",
     name: "Mid-Range Car",
     data: {
-      vehiclePrice: 40000,
-      downPaymentPercentage: 20,
-      autoLoanInterestRateAnnual: 5.5,
-      loanTermYears: 5,
-      vehicleDepreciationRate: 15,
-      insuranceAndRegistrationRateAnnual: 2.5,
-      maintenanceRateAnnual: 1.5,
-      fuelCostsAnnual: 2000,
-      currentMonthlyLeaseAmount: 550,
-      leaseGrowthRateAnnual: 3.0,
-      sameAsVehicleDepreciation: false,
+  carPrice: 40000,
+  downPaymentPercentage: 20,
+  autoLoanInterestRateAnnual: 5.5,
+  autoLoanTermYears: 5,
+  carDepreciationRate: 15,
+  insuranceAndRegistrationRateAnnual: 2.5,
+  maintenanceAndFuelRateAnnual: 3.5, // 1.5 + 2.0 (fuel)
+  registrationAndFuelAnnual: 2000,
+  currentMonthlyRentAmount: 550,
+  rentGrowthRateAnnual: 3.0,
     },
   },
   {
     id: "luxury",
     name: "Luxury Car",
     data: {
-      vehiclePrice: 60000,
-      downPaymentPercentage: 20,
-      autoLoanInterestRateAnnual: 6.0,
-      loanTermYears: 5,
-      vehicleDepreciationRate: 12,
-      insuranceAndRegistrationRateAnnual: 3.0,
-      maintenanceRateAnnual: 2.0,
-      fuelCostsAnnual: 2500,
-      currentMonthlyLeaseAmount: 800,
-      leaseGrowthRateAnnual: 3.0,
-      sameAsVehicleDepreciation: false,
+  carPrice: 60000,
+  downPaymentPercentage: 20,
+  autoLoanInterestRateAnnual: 6.0,
+  autoLoanTermYears: 5,
+  carDepreciationRate: 12,
+  insuranceAndRegistrationRateAnnual: 3.0,
+  maintenanceAndFuelRateAnnual: 4.5, // 2.0 + 2.5 (fuel)
+  registrationAndFuelAnnual: 2500,
+  currentMonthlyRentAmount: 800,
+  rentGrowthRateAnnual: 3.0,
     },
   },
   {
     id: "suv",
     name: "SUV",
     data: {
-      vehiclePrice: 45000,
-      downPaymentPercentage: 20,
-      autoLoanInterestRateAnnual: 5.5,
-      loanTermYears: 5,
-      vehicleDepreciationRate: 18,
-      insuranceAndRegistrationRateAnnual: 2.8,
-      maintenanceRateAnnual: 1.8,
-      fuelCostsAnnual: 3000,
-      currentMonthlyLeaseAmount: 600,
-      leaseGrowthRateAnnual: 3.0,
-      sameAsVehicleDepreciation: false,
+  carPrice: 45000,
+  downPaymentPercentage: 20,
+  autoLoanInterestRateAnnual: 5.5,
+  autoLoanTermYears: 5,
+  carDepreciationRate: 18,
+  insuranceAndRegistrationRateAnnual: 2.8,
+  maintenanceAndFuelRateAnnual: 4.8, // 1.8 + 3.0 (fuel)
+  registrationAndFuelAnnual: 3000,
+  currentMonthlyRentAmount: 600,
+  rentGrowthRateAnnual: 3.0,
     },
   },
 ];
 
-export function getCityDefault(id: string): VehicleDefault | undefined {
-  const stack: VehicleDefault[] = [...cityDefaults];
+export function getVehicleDefault(id: string): VehicleDefault | undefined {
+  const stack: VehicleDefault[] = [...vehicleDefaults];
   while (stack.length > 0) {
     const current = stack.pop() as VehicleDefault;
     if (current.id === id) {

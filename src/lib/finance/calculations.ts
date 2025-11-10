@@ -97,13 +97,13 @@ export function calculatePreliminaryValues(
   buyInputs: BuyInputs,
   rentInputs: RentInputs
 ): PreliminaryCalculations {
-  const downPaymentAmount = (buyInputs.vehiclePrice * buyInputs.downPaymentPercentage) / 100;
-  const loanAmount = buyInputs.vehiclePrice - downPaymentAmount;
-  const dealerFeesAmount = (buyInputs.vehiclePrice * buyInputs.dealerFeesPercentageBuy) / 100;
+  const downPaymentAmount = (buyInputs.carPrice * buyInputs.downPaymentPercentage) / 100;
+  const loanAmount = buyInputs.carPrice - downPaymentAmount;
+  const dealerFeesAmount = (buyInputs.carPrice * buyInputs.dealerFeesPercentage) / 100;
   const monthlyPayment = calculateMonthlyAutoLoanPayment(
-    loanAmount,
-    buyInputs.autoLoanInterestRateAnnual,
-    buyInputs.loanTermYears
+  loanAmount,
+  buyInputs.autoLoanInterestRateAnnual,
+  buyInputs.autoLoanTermYears
   );
   
   const initialInvestmentAmount = 0; // No longer used - cash flow difference includes down payment savings
@@ -141,13 +141,13 @@ export function calculateBuyScenarioForYear(
   previousBuyCalculation?: YearlyBuyCalculation
 ): YearlyBuyCalculation {
   // Current vehicle value with depreciation
-  const vehicleValue = buyInputs.vehiclePrice * Math.pow(1 - buyInputs.vehicleDepreciationRate / 100, year);
+  const vehicleValue = buyInputs.carPrice * Math.pow(1 - buyInputs.carDepreciationRate / 100, year);
   
   // Annual holding costs
-  const insuranceAndRegistration = buyInputs.vehiclePrice * buyInputs.insuranceAndRegistrationRateAnnual / 100;
-  const maintenance = buyInputs.vehiclePrice * buyInputs.maintenanceRateAnnual / 100;
-  const fuelCosts = buyInputs.fuelCostsAnnual;
-  const totalHoldingCosts = insuranceAndRegistration + maintenance + fuelCosts;
+  const insuranceAndRegistration = buyInputs.carPrice * buyInputs.insuranceAndRegistrationRateAnnual / 100;
+  const maintenanceAndFuel = buyInputs.carPrice * buyInputs.maintenanceAndFuelRateAnnual / 100;
+  const registrationAndFuel = buyInputs.registrationAndFuelAnnual;
+  const totalHoldingCosts = insuranceAndRegistration + maintenanceAndFuel + registrationAndFuel;
   
   // Auto loan payments (use actual annual payments from schedule, which will be 0 after loan is paid off)
   const annualAutoLoanPayment = autoLoanBreakdown.annualInterestPaid + autoLoanBreakdown.annualPrincipalPaid;
@@ -198,9 +198,9 @@ export function calculateBuyScenarioForYear(
   
   // Cash out scenario calculations
   const sellingPrice = vehicleValue;
-  const sellingCostsAmount = sellingPrice * buyInputs.sellingCostsPercentageSell / 100;
+  const sellingCostsAmount = sellingPrice * buyInputs.sellingCostsPercentage / 100;
   const proceedsBeforeTaxAndLoanRepayment = sellingPrice - sellingCostsAmount;
-  const capitalGainOnVehicle = sellingPrice - buyInputs.vehiclePrice;
+  const capitalGainOnVehicle = sellingPrice - buyInputs.carPrice;
   const taxableGainOnVehicle = Math.max(0, capitalGainOnVehicle - preliminary.taxFreeCapitalGainAmount);
   const taxOnVehicleGain = taxableGainOnVehicle * buyInputs.longTermCapitalGainsTaxRateVehicle / 100;
   
@@ -223,8 +223,8 @@ export function calculateBuyScenarioForYear(
     vehicleValue,
     totalHoldingCosts,
     insuranceAndRegistration,
-    maintenance,
-    fuelCosts,
+  maintenance: maintenanceAndFuel,
+  fuelCosts: registrationAndFuel,
     autoLoanPayment: annualAutoLoanPayment,
     autoLoanInterest: autoLoanBreakdown.annualInterestPaid,
     autoLoanPrincipal: autoLoanBreakdown.annualPrincipalPaid,
@@ -255,8 +255,8 @@ export function calculateRentScenarioForYear(
   preliminary: PreliminaryCalculations
 ): YearlyLeaseCalculation {
   // Current lease calculation
-  const monthlyLease = rentInputs.currentMonthlyLeaseAmount * 
-                      Math.pow(1 + rentInputs.leaseGrowthRateAnnual / 100, year - 1);
+  const monthlyLease = rentInputs.currentMonthlyRentAmount * 
+                      Math.pow(1 + rentInputs.rentGrowthRateAnnual / 100, year - 1);
   const annualLeaseCost = monthlyLease * 12;
   const cashOutflow = annualLeaseCost;
   
@@ -322,7 +322,7 @@ export function calculateAllScenarios(
   const autoLoanSchedule = generateAmortizationSchedule(
     preliminary.autoLoan.totalLoanAmount,
     buyInputs.autoLoanInterestRateAnnual,
-    buyInputs.loanTermYears,
+  buyInputs.autoLoanTermYears,
     appSettings.projectionYears
   );
   
@@ -382,21 +382,21 @@ export function generateCalculationFormulas(
 ): CalculationFormulas {
   const P = preliminary.autoLoan.totalLoanAmount;
   const r = buyInputs.autoLoanInterestRateAnnual;
-  const n = buyInputs.loanTermYears;
+  const n = buyInputs.autoLoanTermYears;
   const i = r / 100 / 12;
   const totalPayments = n * 12;
   
   return {
     monthlyAutoLoanPayment: `M = ${P.toLocaleString()} × [${(i * 100).toFixed(4)}% × (1 + ${(i * 100).toFixed(4)}%)^${totalPayments}] / [(1 + ${(i * 100).toFixed(4)}%)^${totalPayments} - 1] = $${preliminary.autoLoan.monthlyPayment.toLocaleString()}`,
     
-    vehicleValueDepreciation: `Vehicle Value = $${buyInputs.vehiclePrice.toLocaleString()} × (1 - ${buyInputs.vehicleDepreciationRate}%)^Year`,
+  vehicleValueDepreciation: `Vehicle Value = $${buyInputs.carPrice.toLocaleString()} × (1 - ${buyInputs.carDepreciationRate}%)^Year`,
     
     investmentGrowth: `Portfolio Value = (Previous Value + New Investment) × (1 + ${preliminary.investmentReturnRate}%)`,
     
     taxCalculations: {
       autoLoanInterestDeduction: `Tax Savings = Annual Interest × ${buyInputs.marginalTaxRate}% = $X × ${buyInputs.marginalTaxRate}% = $Y`,
       
-      vehicleCapitalGains: `Vehicle Tax = max(0, (Sale Price - $${buyInputs.vehiclePrice.toLocaleString()}) - $${preliminary.taxFreeCapitalGainAmount.toLocaleString()}) × ${buyInputs.longTermCapitalGainsTaxRateVehicle}%`,
+  vehicleCapitalGains: `Vehicle Tax = max(0, (Sale Price - $${buyInputs.carPrice.toLocaleString()}) - $${preliminary.taxFreeCapitalGainAmount.toLocaleString()}) × ${buyInputs.longTermCapitalGainsTaxRateVehicle}%`,
       
       investmentCapitalGains: `Investment Tax = max(0, Portfolio Value - Total Invested) × ${rentInputs.longTermCapitalGainsTaxRateInvestment}%`
     }

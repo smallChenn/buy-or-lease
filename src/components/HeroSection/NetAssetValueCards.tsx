@@ -16,15 +16,15 @@ export default function NetAssetValueCards() {
   // Use calculation data if available, otherwise use fallback values
   const buyData = {
     netWorth: comparison.buy,
-    propertyValue: targetResult?.buy.propertyValue ?? 0,
-    mortgageBalance: targetResult?.buy.remainingMortgageBalance ?? 0,
+    vehicleValue: targetResult?.buy.vehicleValue ?? 0,
+    autoLoanBalance: targetResult?.buy.remainingAutoLoanBalance ?? 0,
     additionalInvestmentPortfolio: targetResult?.buy.additionalInvestmentPortfolio ?? 0,
     additionalInvestmentCostBasis: targetResult?.buy.additionalInvestmentCostBasis ?? 0,
   };
 
   const rentData = {
     netWorth: comparison.rent,
-    initialInvestment: (buyInputs.propertyPrice * buyInputs.downPaymentPercentage) / 100,
+    initialInvestment: (buyInputs.carPrice * buyInputs.downPaymentPercentage) / 100,
     totalInvested: targetResult?.rent.totalCashInvestedSoFar ?? 0,
     portfolioValue: targetResult?.rent.portfolioValueEndOfYear ?? 0,
   };
@@ -61,10 +61,10 @@ export default function NetAssetValueCards() {
         {/* Breakdown */}
         <div className="space-y-2 text-sm">
           <div className="text-dark-500">
-            {t("hero.netWorth.buyExplanation.youOwn")}{" "}
-            <span className="font-bold text-primary-700">{formatLocalizedCurrency(buyData.propertyValue)}</span>{" "}
-            {t("hero.netWorth.buyExplanation.homeAndOwe")}{" "}
-            <span className="font-bold text-red-700">{formatLocalizedCurrency(buyData.mortgageBalance)}</span>{" "}
+            {t("hero.netWorth.buyExplanation.youOwn")} {" "}
+            <span className="font-bold text-primary-700">{formatLocalizedCurrency(buyData.vehicleValue)}</span> {" "}
+            {t("hero.netWorth.buyExplanation.homeAndOwe")} {" "}
+            <span className="font-bold text-red-700">{formatLocalizedCurrency(buyData.autoLoanBalance)}</span> {" "}
             {t("hero.netWorth.buyExplanation.onMortgage")}
           </div>
           {buyData.additionalInvestmentPortfolio > 0 && (

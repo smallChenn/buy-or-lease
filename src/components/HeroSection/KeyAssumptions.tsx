@@ -43,14 +43,14 @@ export default function KeyAssumptions() {
         <div className="flex items-center">
           <i className="fas fa-home text-primary-500 mr-2"></i>
           <span>
-            {t("hero.assumptions.vehicleValue")} <span className="font-medium">{formatCurrency(buyInputs.vehiclePrice)}</span>
+            {t("hero.assumptions.vehicleValue")} <span className="font-medium">{formatCurrency(buyInputs.carPrice)}</span>
           </span>
         </div>
 
         <div className="flex items-center">
           <i className="fas fa-building text-secondary-500 mr-2"></i>
           <span>
-            {t("hero.assumptions.currentLease")} <span className="font-medium">{formatCurrency(rentInputs.currentMonthlyLeaseAmount)}/mo</span>
+            {t("hero.assumptions.currentLease")} <span className="font-medium">{formatCurrency(rentInputs.currentMonthlyRentAmount)}/mo</span>
           </span>
         </div>
 
@@ -72,14 +72,14 @@ export default function KeyAssumptions() {
           <i className="fas fa-arrow-trend-down text-primary-500 mr-2"></i>
           <span>
             {t("hero.assumptions.vehicleDepreciation")}{" "}
-            <span className="font-medium">{formatPercentage(buyInputs.vehicleDepreciationRate)}/yr</span>
+            <span className="font-medium">{formatPercentage(buyInputs.carDepreciationRate)}/yr</span>
           </span>
         </div>
 
         <div className="flex items-center">
           <i className="fas fa-arrow-trend-up text-secondary-500 mr-2"></i>
           <span>
-            {t("hero.assumptions.leaseIncrease")} <span className="font-medium">{formatPercentage(rentInputs.leaseGrowthRateAnnual)}/yr</span>
+            {t("hero.assumptions.leaseIncrease")} <span className="font-medium">{formatPercentage(rentInputs.rentGrowthRateAnnual)}/yr</span>
           </span>
         </div>
       </div>
